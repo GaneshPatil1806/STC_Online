@@ -1,13 +1,12 @@
-import PropTypes from 'prop-types';
+import { useParams } from "react-router-dom"; 
 
-function ChatCard({ Name }) {
+function ChatCard() {
+  const {id} = useParams();
+  
   return (
-    <li className="text-black flex justify-center py-2 border border-b">{Name}</li>
-  );
+    <div>
+       {id}
+    </div>
+  )
 }
-
-ChatCard.propTypes = {
-  Name: PropTypes.string.isRequired,
-};
-
-export default ChatCard;
+export default ChatCard

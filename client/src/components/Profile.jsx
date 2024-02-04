@@ -1,8 +1,8 @@
 
 function Profile() {
   return (
-        <div className="fixed left-[5%] top-0 h-full w-5/12 bg-gray-200 p-4">
-            {/*Profile contents */}
+        <div className="absolute left-[5%] h-full w-[30%] bg-black p-4">
+            
             <h2>Profile</h2>
             {/* ... */}
     </div>
