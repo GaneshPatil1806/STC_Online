@@ -1,15 +1,15 @@
 import { LuSendHorizonal } from "react-icons/lu";
 import { GrAttachment } from "react-icons/gr";
 import { useState } from "react";
-import GroupCard from "./GroupCard";
-import ChatCard from "./ChatCard";
+import GroupCard from "../components/GroupCard";
+import ChatCard from "../components/ChatCard";
 import pictLogo from '../assets/images/pict-logo.jpg'
 import Profile from "./Profile";
 import { data } from "../assets/data";
 import { Link } from "react-router-dom";
-import ChatHeader from "./ChatHeader";
+import ChatHeader from "../components/ChatHeader";
 
-function Group() {
+function Chat() {
 
   const [message, setMessage] = useState('');
   const [showProfile, setShowProfile] = useState(false);
@@ -84,4 +84,4 @@ function Group() {
   );
 }
 
-export default Group;
+export default Chat;
