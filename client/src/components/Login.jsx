@@ -7,12 +7,11 @@ import useUser, { UserContext } from '../context/userContext';
 
 function Login({ type }) {
     const navigate = useNavigate();
-
-    const {user,setUser} = useUser();
+    const { user, setUser } = useUser();
 
     function LoginHandler(e) {
         e.preventDefault();
-        // verification
+        // Verification
         navigate('chat');
     }
 
@@ -27,14 +26,14 @@ function Login({ type }) {
 
     return (
         <UserContext.Provider value={user}>
-            <div className="flex h-screen bg-white">
-                <div className="w-6/12 relative">
-                    <img className="absolute top-0 left-0 w-50 h-50 z-10" src={pictLogo} alt="Pict Logo" />
-                    <img src={loginLogo} className="h-screen" alt="Login Logo" />
+            <div className="flex lg:flex-row h-screen bg-white">
+                <div className="lg:w-6/12 md:relative">
+                    <img className="absolute top-0 left-0 w-20 h-20 z-10 md:w-40 md:h-40" src={pictLogo} alt="Pict Logo" />
+                    <img src={loginLogo} className="hidden md:block w-full h-screen" alt="Login Logo" />
                 </div>
 
                 {type ? (
-                    <div className="w-6/12 flex flex-col justify-center items-center">
+                    <div className="w-full lg:w-6/12 flex flex-col justify-center items-center lg:p-4">
                         <span className="text-xl mb-5">{type.toUpperCase()}</span>
 
                         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
@@ -68,8 +67,7 @@ function Login({ type }) {
                                 />
                             </div>
 
-                            <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"
-                                onClick={LoginHandler}>
+                            <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={LoginHandler}>
                                 Submit
                             </button>
                         </form>
@@ -77,10 +75,9 @@ function Login({ type }) {
                         <Link to="/">
                             <p className="text-slate-500"> <FaArrowAltCircleLeft className="w-8 h-8 cursor-pointer" />BACK</p>
                         </Link>
-
                     </div>
                 ) : (
-                    <div className="w-6/12 flex flex-col justify-center items-center border border-solid border-white">
+                    <div className="w-full lg:w-6/12 flex flex-col justify-center items-center border border-solid border-white">
                         <div className="flex flex-col justify-center items-center gap-10">
                             <span className="text-black text-3xl font-semibold">LOGIN</span>
                             <div className="flex gap-10">

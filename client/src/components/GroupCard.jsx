@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 function GroupCard({ group }) {
   const { name } = group;
   return (
-    <p className="text-black flex justify-center py-2 border border-b cursor-pointer">{name}</p>
+    <p className="text-black flex justify-center md:py-2 border border-b cursor-pointer">{name}</p>
   );
 }
 

@@ -8,6 +8,7 @@ import Profile from "./Profile";
 import { data } from "../assets/data";
 import { Link } from "react-router-dom";
 import ChatHeader from "../components/ChatHeader";
+import useUser from "../context/userContext";
 
 function Chat() {
 
@@ -22,20 +23,22 @@ function Chat() {
     setShowProfile(!showProfile);
   };
 
+  const {user} = useUser();
+
   return (
     <div className="flex">
-      <div className="w-[5%] h-[100vh] border border-r-grey flex flex-col items-center">
-        {/* add profile and other stuff */}
-        <img src={pictLogo} alt="Logo" className="h-10 w-10 my-2 cursor-pointer" onClick={toggleProfile} />
-        <img src={pictLogo} alt="Logo" className="h-10 w-10 my-2 cursor-pointer" onClick={toggleProfile} />
-      </div>
+        <div className="w-[3rem] lg:w-[4rem] h-screen border border-r-grey flex flex-col items-center">
+          {/* add profile and other stuff */}
+          <p className="flex justify-center items-center h-7 w-7 md:h-10 md:w-10 my-2 cursor-pointer bg-gray-300 rounded-lg text-black hover:bg-black hover:text-white" onClick={toggleProfile} >{user.username.charAt(0)}</p>
+          <img src={pictLogo} alt="Logo" className="h-10 w-10 my-2 cursor-pointer" onClick={toggleProfile} />
+        </div>
 
       {showProfile && <Profile isVisible={showProfile} />}
 
-      <div className="flex flex-col w-[30%] h-[100vh] border border-r-grey">
-
-        <div className="h-[10%] border border-b-grey flex items-centers justify-center">
-          <input type="text" id="search" placeholder="Enter your search here" className="border border-b w-[90%] m-2 rounded-xl p-2" />
+      <div className="flex flex-col w-[20rem] lg:w-[30%]">
+         {/* search bar */}
+        <div className="h-12 lg:h-[10%] border border-b-grey flex items-centers justify-center">
+          <input type="text" id="search" placeholder="Enter your search here" className="w-[90%] m-1 p-1" />
         </div>
 
         <div className="h-[90%]">
@@ -51,8 +54,8 @@ function Chat() {
         </div>
       </div>
 
-      <div className="flex flex-col w-[65%] h-[100vh] border">
-        <div className="flex flex-col h-[10%] border border-b-grey">
+      <div className="flex flex-col w-[65%] border">
+        <div className="flex flex-col h-12 lg:h-[10%] border border-b-grey">
           <ChatHeader/>
         </div>
 
@@ -62,14 +65,14 @@ function Chat() {
           </div>
         </div>
 
-        <div className="flex justify-between items-center h-[10%] border border-t-black px-4">
+        <div className="flex justify-between items-center h-12 border px-1">
           {/* pdf */}
           <GrAttachment className="justify-center max-w-8 max-h-8 w-6 h-6 cursor-pointer" />
 
           {/* Group */}
           <div className="flex flex-col justify-center items-center w-[90%] h-[95%] overflow-hidden">
             <textarea
-              className="w-[90%] h-auto py-4 rounded-xl px-2 resize-none overflow-hidden"
+              className="w-[90%] rounded-xl px-2 resize-none overflow-hidden"
               value={message}
               onChange={handleChange}
               placeholder="Type a message..."
