@@ -3,8 +3,9 @@ import { createContext, useContext } from 'react';
 
 export const UserContext = createContext({
   user: {
+    access_token: '',
     username: '',
-    password: '',
+    type:''
   },
   setUser: () => {}, 
 });

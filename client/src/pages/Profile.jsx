@@ -10,20 +10,11 @@ function Profile() {
   }
 
   return (
-    <div className="absolute left-[5%] h-full w-[80%] sm:w-[50%] md:w-[40%] lg:w-[30%] bg-white flex items-center flex-col">
+    <div className="left-[5%] w-full lg:w-[30%] bg-white flex items-center flex-col h-screen">
+
       <h2 className="text-black p-3 text-xl font-medium">Profile</h2>
-      <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
-      <p>Name: Joshi Sir</p>
-      <p>Other info...</p>
 
-      <button
-        className="text-xl bg-black px-2 text-white rounded-lg m-2"
-        onClick={() => setDisplayEdit((prev) => !prev)}
-      >
-        {displayEdit ? <IoIosCloseCircle className="text-3xl" /> : 'Edit Password'}
-      </button>
-
-      {displayEdit && (
+      {displayEdit ? (
         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div>
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="newPassword">
@@ -59,7 +50,16 @@ function Profile() {
             Submit
           </button>
         </form>
-      )}
+      ) : <>
+
+        <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
+        <p>Name: Joshi Sir</p>
+        <p>Other info...</p>
+
+      </>}
+
+      <button onClick={() => setDisplayEdit((prev) => (!prev))}>      {displayEdit ? <div className='flex flex-col'><IoIosCloseCircle className="text-3xl" /> <p>Close</p></div> : <p className='text-white bg-black rounded p-2'>Edit Password</p>}</button>
+
     </div>
   );
 }

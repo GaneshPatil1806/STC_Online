@@ -4,27 +4,45 @@ import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import useUser, { UserContext } from '../context/userContext';
+import axios from 'axios';
+import { storeInLocal } from '../assets/local';
+import { useState } from 'react';
 
-function Login({ type }) {
+function Login ({ type }) {
     const navigate = useNavigate();
-    const { user, setUser } = useUser();
+
+    const [dummyUser,setDummyUser] = useState({
+        username:'',
+        password:'',
+    });
+
+    const { user,setUser } = useUser();
 
     function LoginHandler(e) {
         e.preventDefault();
-        // Verification
-        navigate('chat');
+
+        axios.post('http://localhost:3000/signin',dummyUser)
+        .then((res)=>(
+            JSON.stringify({...res.data,type:type})
+        ))
+        .then((data)=>{
+            storeInLocal('user',data)
+            setUser(JSON.parse(data))
+            navigate(`chat`)
+        });
     }
 
     function changeHandler(e) {
         const { name, value } = e.target;
         
-        setUser({
-            ...user,
+        setDummyUser({
+            ...dummyUser,
             [name]: value
         })
     }
 
     return (
+        user.access_token ? navigate(`${user.type}/chat`) : 
         <UserContext.Provider value={user}>
             <div className="flex lg:flex-row h-screen bg-white">
                 <div className="lg:w-6/12 md:relative">
@@ -47,7 +65,7 @@ function Login({ type }) {
                                     name="username"
                                     type="text"
                                     placeholder="Username"
-                                    value={user.username}
+                                    value={dummyUser.username}
                                     onChange={changeHandler}
                                 />
                             </div>
@@ -62,7 +80,7 @@ function Login({ type }) {
                                     name="password"
                                     type="password"
                                     placeholder="Password"
-                                    value={user.password}
+                                    value={dummyUser.password}
                                     onChange={changeHandler}
                                 />
                             </div>
