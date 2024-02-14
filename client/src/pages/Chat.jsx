@@ -14,7 +14,7 @@ import useUser from "../context/userContext";
 function Chat() {
   const [message, setMessage] = useState('');
   const [showProfile, setShowProfile] = useState(false);
-  const [inChat, setInChat] = useState(false);
+  const [activeGroupId, setActiveGroupId] = useState(null);
   const { user } = useUser();
 
   const handleChange = (event) => {
@@ -25,8 +25,8 @@ function Chat() {
     setShowProfile(!showProfile);
   };
 
-  const onGroupClick = () => {
-    setInChat((prev) => !prev);
+  const onGroupClick = (groupId) => {
+    setActiveGroupId(groupId);
   };
 
   return (
@@ -41,33 +41,34 @@ function Chat() {
 
       {/* Group list */}
 
-      { showProfile ? <Profile isVisible={showProfile} /> :
+      {showProfile ? <Profile isVisible={showProfile} /> :
 
-       <div className={`w-full lg:w-[30%]  ${inChat ? 'hidden sm:block' : ''}`}>
-        {/* Search bar */}
-        <div className="h-12 lg:h-[10%] border border-b-grey flex items-center justify-center">
-          <input type="text" id="search" placeholder="Enter your search here" className="w-[90%] m-1 p-1" />
-        </div>
+        <div className={`w-full lg:w-[30%]  ${activeGroupId ? 'hidden sm:block' : ''}`}>
+          {/* Search bar */}
+          <div className="h-12 lg:h-[10%] border border-b-grey flex items-center justify-center">
+            <input type="text" id="search" placeholder="Enter your search here" className="w-[90%] m-1 p-1" />
+          </div>
 
-        {/* Group list */}
-        <div className="h-[90%] overflow-y-auto">
-          <ul className="list-none flex flex-col">
-            {data.groups.map((group) => (
-              <Link to={`group/${group.id}`} key={group.id}>
-                <GroupCard group={group} onGroupClick={onGroupClick} />
-              </Link>
-            ))}
-          </ul>
-        </div>
-      </div>}
+          {/* Group list */}
+          <div className="h-[90%] overflow-y-auto">
+            <ul className="list-none flex flex-col">
+              {data.groups.map((group) => (
+                <Link to={`group/${group.id}`} key={group.id}>
+                  {/* Pass the group.id to onGroupClick */}
+                  <GroupCard group={group} onGroupClick={() => onGroupClick(group.id)} activeGroupId={activeGroupId} />
+                </Link>
+              ))}
+            </ul>
+          </div>
+        </div>}
 
       {/* Chat section */}
-      <div className={`flex flex-col h-screen w-full lg:w-[65%] ${inChat ? `${showProfile ? 'hidden lg:block' : ''}` : 'hidden'}`}>
+      <div className={`flex flex-col h-screen w-full lg:w-[65%] ${activeGroupId ? `${showProfile ? 'hidden lg:block' : ''}` : 'hidden'}`}>
         {/* Content */}
 
         <div className="flex items-center h-12 lg:h-[10%] border border-b-grey px-4">
-          <Link to={``}><AiOutlineLeft className="w-6 h-6 text-gray-500 hover:text-black" onClick={() => onGroupClick()} /></Link>
-          <ChatHeader />
+          <Link to={``}><AiOutlineLeft className="w-6 h-6 text-gray-500 hover:text-black" onClick={() => onGroupClick(null)} /></Link>
+          <ChatHeader/>
         </div>
 
         <div className="h-[80%]">
