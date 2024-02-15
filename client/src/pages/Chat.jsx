@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { LuSendHorizonal } from "react-icons/lu";
 import { GrAttachment } from "react-icons/gr";
 import { AiOutlineLeft } from "react-icons/ai";
@@ -30,11 +31,11 @@ function Chat() {
   };
 
   return (
-    <div className="flex flex-row h-screen">
+      <div className="flex flex-row h-screen">
       {/* Sidebar */}
       <div className="w-14 lg:w-15 h-screen border border-r-grey flex flex-col items-center bg-gray-100">
         <p className="flex justify-center items-center h-7 w-7 md:h-10 md:w-10 my-2 cursor-pointer bg-gray-300 rounded-lg text-black hover:bg-black hover:text-white" onClick={toggleProfile}>
-          {user.username.charAt(0)}
+            {/* {user && name.charAt(0)} */}
         </p>
         <img src={pictLogo} alt="Logo" className="h-10 w-10 my-2 cursor-pointer" onClick={toggleProfile} />
       </div>
@@ -88,7 +89,7 @@ function Chat() {
           <LuSendHorizonal className="max-w-8 max-h-8 w-6 h-6 flex items-center cursor-pointer" />
         </div>
       </div>
-    </div>
+    </div> 
   );
 }
 

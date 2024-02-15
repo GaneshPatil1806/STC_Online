@@ -1,12 +1,25 @@
 import { useState } from 'react';
 import profileLogo from '../assets/images/profile.jpg';
 import { IoIosCloseCircle } from 'react-icons/io';
+import {removeFromLocal} from '../assets/local'
+import { useNavigate } from 'react-router-dom';
+import useUser from '../context/userContext';
 
 function Profile() {
   const [displayEdit, setDisplayEdit] = useState(false);
 
+  const navigate = useNavigate();
+  const {user,setUser} = useUser();
+  const type = user.type
+
   function passwordHandler() {
     // change password stuff
+  }
+
+  function handleLogOut(){
+    removeFromLocal('user');
+    setUser('')
+    navigate('/')
   }
 
   return (
@@ -53,12 +66,13 @@ function Profile() {
       ) : <>
 
         <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
-        <p>Name: Joshi Sir</p>
+        <p>{user[type].first_name}</p>
         <p>Other info...</p>
 
+        <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>
       </>}
 
-      <button onClick={() => setDisplayEdit((prev) => (!prev))}>      {displayEdit ? <div className='flex flex-col'><IoIosCloseCircle className="text-3xl" /> <p>Close</p></div> : <p className='text-white bg-black rounded p-2'>Edit Password</p>}</button>
+      <button onClick={() => setDisplayEdit((prev) => (!prev))}>{displayEdit ? <div className='flex flex-col'><IoIosCloseCircle className="text-3xl" /> <p>Close</p></div> : <p className='text-white bg-black rounded p-2'>Edit Password</p>}</button>
 
     </div>
   );

@@ -3,16 +3,17 @@ import pictLogo from '../assets/images/pict-logo.jpg';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import useUser, { UserContext } from '../context/userContext';
+import useUser, { UserContext } from '../context/UserContext/';
 import axios from 'axios';
 import { storeInLocal } from '../assets/local';
 import { useState } from 'react';
+import {appVars} from '../conf/conf'
 
 function Login ({ type }) {
     const navigate = useNavigate();
 
     const [dummyUser,setDummyUser] = useState({
-        username:'',
+        email:'',
         password:'',
     });
 
@@ -20,16 +21,20 @@ function Login ({ type }) {
 
     function LoginHandler(e) {
         e.preventDefault();
+        // console.log(dummyUser);
+        // console.log(appVars.backendUrl);
 
-        axios.post('http://localhost:3000/signin',dummyUser)
+        axios.post(`${appVars.backendUrl}/api/${type}/login`,dummyUser)
         .then((res)=>(
-            JSON.stringify({...res.data,type:type})
+            JSON.stringify({...res.data.data,type:type})
         ))
         .then((data)=>{
-            storeInLocal('user',data)
+            storeInLocal('user',data.data)
             setUser(JSON.parse(data))
             navigate(`chat`)
-        });
+        }).catch((e)=>{
+            console.log('error',e);
+        })
     }
 
     function changeHandler(e) {
@@ -42,9 +47,9 @@ function Login ({ type }) {
     }
 
     return (
-        user.access_token ? navigate(`${user.type}/chat`) : 
+        user.token ? navigate(`${user.type}/chat`) : 
         <UserContext.Provider value={user}>
-            <div className="flex lg:flex-row h-screen bg-white">
+            <div className="flex h-screen bg-white">
                 <div className="lg:w-6/12 md:relative">
                     <img className="absolute top-0 left-0 w-20 h-20 z-10 md:w-40 md:h-40" src={pictLogo} alt="Pict Logo" />
                     <img src={loginLogo} className="hidden md:block w-full h-screen" alt="Login Logo" />
@@ -56,16 +61,16 @@ function Login ({ type }) {
 
                         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div className="mb-4">
-                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
-                                    Username:
+                                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
+                                    email:
                                 </label>
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="username"
-                                    name="username"
+                                    id="email"
+                                    name="email"
                                     type="text"
-                                    placeholder="Username"
-                                    value={dummyUser.username}
+                                    placeholder="email"
+                                    value={dummyUser.email}
                                     onChange={changeHandler}
                                 />
                             </div>
@@ -95,10 +100,16 @@ function Login ({ type }) {
                         </Link>
                     </div>
                 ) : (
-                    <div className="w-full lg:w-6/12 flex flex-col justify-center items-center border border-solid border-white">
-                        <div className="flex flex-col justify-center items-center gap-10">
+                    <div className="flex flex-col w-full lg:w-6/12">
+
+                        <Link to="/admin" className='flex p-4 justify-end h-[15%]'>
+                            <button className="hover:underline">ADMIN</button>
+                        </Link>
+
+                        <div className="flex flex-col justify-center items-center gap-10 h-[85%]">
                             <span className="text-black text-3xl font-semibold">LOGIN</span>
                             <div className="flex gap-10">
+
                                 <Link to="/teacher">
                                     <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner">TEACHER</button>
                                 </Link>
@@ -106,8 +117,10 @@ function Login ({ type }) {
                                 <Link to="/student">
                                     <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner">STUDENT</button>
                                 </Link>
+
                             </div>
                         </div>
+
                     </div>
                 )}
             </div>

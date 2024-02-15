@@ -1,0 +1,6 @@
+[submodule "server_backup"]
+	path = server_backup
+	url = https://github.com/parthasawa100/STC_InHouse.git
+[submodule "server"]
+	path = server
+	url = https://github.com/parthasawa100/STC_InHouse.git

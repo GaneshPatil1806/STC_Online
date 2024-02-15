@@ -7,7 +7,7 @@ function getFromLocal(key){
 }
 
 function removeFromLocal(key){
-    return localStorage.removeItem(key);
+    localStorage.removeItem(key);
 }
 
 export {storeInLocal,removeFromLocal,getFromLocal};
