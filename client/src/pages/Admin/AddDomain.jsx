@@ -2,27 +2,34 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import { useState } from "react";
 import useUser from "../../context/userContext";
+import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 export default function AddDomain() {
-  const [error, setError] = useState();
-  const {admin} = useUser();
+
+  const { admin } = useUser();
+  const navigate = useNavigate();
+
+  const [domain, setDomain] = useState('');
 
   function submitHandler(e) {
     e.preventDefault();
 
-    const domainObj = {}
-    domainObj['domain_name']=e.target.domain.value;
-    console.log(domainObj);
-    
-    axios.post(`${appVars.backendUrl}/api/domain/create`,domainObj,{
-        headers:{Authorization: `Bearer ${admin.token}`}
-      })
+    const domainObj = {
+      domain_name: domain,
+    };
+
+    axios.post(`${appVars.backendUrl}/api/domain/create`, domainObj, {
+      headers: { Authorization: `Bearer ${admin.token}` },
+    })
       .then((res) => {
-        console.log('Response:', res);
+        toast.success(res.data.message);
+        setTimeout(() => {
+          navigate('/admin/dashboard/getDomain');
+        }, 1000);
       })
       .catch((e) => {
-        console.log(e);
-        setError(e.message);
+        toast.error(e.response.data.message);
       });
   }
 
@@ -39,13 +46,14 @@ export default function AddDomain() {
           name="domain"
           type="text"
           placeholder="domain"
+          value={domain}
+          onChange={(e) => setDomain(e.target.value)} // Controlled component
         />
 
         <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
           Submit
         </button>
-
-        {error && <p className="p-2">{error}</p>}
+        <Toaster />
       </form>
     </div>
   );

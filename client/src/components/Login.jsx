@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import useUser, { UserContext } from '../context/UserContext/';
 import axios from 'axios';
 import { storeInLocal } from '../assets/local';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {appVars} from '../conf/conf'
 
 function Login ({ type }) {
@@ -45,6 +45,12 @@ function Login ({ type }) {
             [name]: value
         })
     }
+
+    useEffect(() => {
+        if (user && user.token) {
+          navigate(`${user.type}/chat`);
+        }
+      }, [user, navigate]);
 
     return (
         user.token ? navigate(`${user.type}/chat`) : 

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { appVars } from '../../conf/conf'
 import axios from "axios";
 import { storeInLocal } from '../../assets/local'
@@ -15,7 +15,6 @@ function Admin() {
     password: '',
   });
   const { admin, setAdmin } = useUser();
-  console.log("hll", admin);
 
   function LoginHandler(e) {
     e.preventDefault();
@@ -31,6 +30,12 @@ function Admin() {
         console.log('error', e);
       });
   }
+
+  useEffect(() => {
+    if (admin && admin.token) {
+      navigate(`dashboard`);
+    }
+  }, [admin, navigate]);
 
   function changeHandler(e) {
     const { name, value } = e.target;
