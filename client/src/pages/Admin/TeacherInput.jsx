@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 
 const TeacherInput = ({ label, placeholder, value, onChange }) => (
-  <div className="mb-4">
+  <div className="mb-1">
     <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={label}>
       {label}
     </label>

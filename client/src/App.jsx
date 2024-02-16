@@ -11,7 +11,7 @@ import GetDomain from './pages/Admin/getDomain';
 import AddTeacher from './pages/Admin/AddTeacher';
 import GetTeacher from './pages/Admin/getTeacher';
 import AddGroup from './pages/Admin/AddGroup';
-import GetGroup from './pages/Admin/getGroup';
+import GetGroups from './pages/Admin/GetGroups';
 import AddStudent from './pages/Admin/AddStudent';
 import GetStudent from './pages/Admin/GetStudent';
 import ChatCard from './components/ChatCard';
@@ -53,7 +53,7 @@ function App() {
           <Route path="/admin/dashboard/getTeacher" element={<GetTeacher/>}></Route>
 
           <Route path="/admin/dashboard/addGroup" element={<AddGroup/>}></Route>
-          <Route path="/admin/dashboard/getGroup" element={<GetGroup/>}></Route>
+          <Route path="/admin/dashboard/getGroups" element={<GetGroups/>}></Route>
 
           <Route path="/admin/dashboard/addStudent" element={<AddStudent/>}></Route>
           <Route path="/admin/dashboard/getStudent" element={<GetStudent/>}></Route>

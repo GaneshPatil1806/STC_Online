@@ -24,7 +24,7 @@ function Dashboard() {
             <div className="p-3 font-bold text-xl">Add Group</div>
         </Link>
 
-        <Link to='getGroup' className="h-60 w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
+        <Link to='getGroups' className="h-60 w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
             <div className="p-3 font-bold text-xl">Get Group</div>
         </Link>
 
