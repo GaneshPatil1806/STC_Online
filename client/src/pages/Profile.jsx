@@ -1,32 +1,56 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import profileLogo from '../assets/images/profile.jpg';
 import { IoIosCloseCircle } from 'react-icons/io';
-import {removeFromLocal} from '../assets/local'
+import { getFromLocal, removeFromLocal } from '../assets/local'
 import { useNavigate } from 'react-router-dom';
 import useUser from '../context/userContext';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+import { appVars } from '../conf/conf';
+import Loading from '../common/Loading';
 
-function Profile() {
+function Profile({type}) {
   const [displayEdit, setDisplayEdit] = useState(false);
+  const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const {user,setUser} = useUser();
-  const type = user.type
+  const { user, setUser } = useUser();
 
   function passwordHandler() {
     // change password stuff
   }
 
-  function handleLogOut(){
-    removeFromLocal('user');
-    setUser('')
-    navigate('/')
+  function handleLogOut() {
+    
+    setLoading(true);
+    axios.post(`${appVars.backendUrl}/api/${user.type === 'teacher' ? 'teacher' : 'student' }/logout`, {}, {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      })
+      .then((res) => {
+        removeFromLocal('user');
+        setLoading(false);
+        setUser(null);
+        toast.success(res.data.message);
+      })
+      .catch(() => {
+        toast.error('Logout failed!');
+      })
+      .finally(() => {
+        setTimeout(() => {
+          navigate('/');
+        }, 1000);
+      });
   }
 
   return (
-    <div className="left-[5%] w-full lg:w-[30%] bg-white flex items-center flex-col h-screen">
+    <div className="left-[5%] w-full lg:w-[25%] bg-white flex items-center flex-col h-screen">
 
+      <Toaster/>
+      {loading && <Loading/>}
       <h2 className="text-black p-3 text-xl font-medium">Profile</h2>
-
       {displayEdit ? (
         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
           <div>
@@ -68,7 +92,7 @@ function Profile() {
         <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
         <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
         <p>{user && user[type].email}</p>
-        
+
         <p>Other info...</p>
 
         <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>

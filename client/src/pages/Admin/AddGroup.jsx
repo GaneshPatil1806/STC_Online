@@ -3,18 +3,20 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import useUser from "../../context/userContext";
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 
 export default function AddGroup() {
 
   const { admin } = useUser();
+  const navigate = useNavigate();
 
   function submitHandler(e) {
     e.preventDefault();
     let form = new FormData(formElement);
     let formData = {}
 
-    for(let [key,value] of form.entries()){
-      if(key === 'teacherId'){
+    for (let [key, value] of form.entries()) {
+      if (key === 'teacherId') {
         value = parseInt(value);
       }
       formData[key] = (value);
@@ -32,37 +34,45 @@ export default function AddGroup() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen flex-col">
-      <p>Add New Group</p>
-      <form id='formElement' className="bg-slate-200 shadow-md rounded p-4 m-4" onSubmit={submitHandler}>
 
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Group">
-          Name
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-          id="groupId"
-          name="groupId"
-          type="text"
-          placeholder="Group Id"
-        />
+    <>
+      <div className="flex justify-between absolute w-full">
+        <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
+        <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/getGroups')}>Fetch Groups</button>
+      </div>
 
-        <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Group">
-          Teacher Id
-        </label>
-        <input
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
-          id="teacherId"
-          name="teacherId"
-          type="text"
-          placeholder="Teacher Id"
-        />
+      <div className="flex justify-center items-center h-screen flex-col">
+        <p>Add New Group</p>
+        <form id='formElement' className="bg-slate-200 shadow-md rounded p-4 m-4" onSubmit={submitHandler}>
 
-        <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={submitHandler}>
-          Submit
-        </button>
-        <Toaster />
-      </form>
-    </div>
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Group">
+            Name
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            id="groupId"
+            name="groupId"
+            type="text"
+            placeholder="Group Id"
+          />
+
+          <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="Group">
+            Teacher Id
+          </label>
+          <input
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            id="teacherId"
+            name="teacherId"
+            type="text"
+            placeholder="Teacher Id"
+          />
+
+          <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={submitHandler}>
+            Submit
+          </button>
+          <Toaster />
+        </form>
+      </div>
+    </>
   );
 }

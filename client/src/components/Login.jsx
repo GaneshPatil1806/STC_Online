@@ -116,10 +116,10 @@ function Login ({ type }) {
                         <Toaster/>
                     </div>
                 ) : (
-                    <div className="flex flex-col w-full lg:w-6/12">
+                    <div className="flex flex-col w-full lg:w-6/12 relative">
 
-                        <Link to="/admin" className='flex mr-5 justify-end h-[15%]'>
-                            <button className="underline">ADMIN</button>
+                        <Link to="/admin" className='flex ml-5 h-[15%] absolute'>
+                        <button className="underline">ADMIN</button>
                         </Link>
 
                         <div className="flex flex-col justify-center items-center gap-10 h-[85%]">

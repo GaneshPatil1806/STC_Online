@@ -5,10 +5,12 @@ import axios from "axios";
 import { storeInLocal } from '../../assets/local'
 import useUser from '../../context/UserContext/'
 import { UserProvider } from "../../context/userContext";
+import Loading from "../../common/Loading";
 
 function Admin() {
 
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
 
   const [dummyUser, setDummyUser] = useState({
     username: '',
@@ -17,23 +19,27 @@ function Admin() {
   const { admin, setAdmin } = useUser();
 
   function LoginHandler(e) {
+    setLoading(true)
     e.preventDefault();
 
     axios.post(`${appVars.backendUrl}/api/admin/login`, dummyUser)
       .then((res) => {
+        setLoading(false);
         const adminData = res.data.data;
         let data = JSON.stringify({ ...adminData });
         storeInLocal('admin', data);
         setAdmin(adminData); 
+        navigate('dashboard');
       })
       .catch((e) => {
+        setLoading(false);
         console.log('error', e);
       });
   }
 
   useEffect(() => {
     if (admin && admin.token) {
-      navigate('dashboard');
+      navigate('/admin/dashboard');
     }
   }, [admin, navigate]);
 
@@ -47,6 +53,8 @@ function Admin() {
   }
 
   return (
+
+      admin && admin.token ? navigate('/admin/dashboard') : 
       <UserProvider value={admin}>
         <div className="w-full flex flex-col justify-center items-center h-screen">
           <p className="text-xl p-2 font-bold">Admin Login</p>
@@ -84,8 +92,9 @@ function Admin() {
             <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={LoginHandler}>
               Submit
             </button>
-          </form>
 
+            {loading && <Loading/>}
+          </form>
         </div>
       </UserProvider>
   )

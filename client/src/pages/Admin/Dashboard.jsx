@@ -4,14 +4,18 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import toast,{Toaster} from "react-hot-toast";
 import { removeFromLocal } from "../../assets/local";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import Loading from "../../common/Loading";
 
 function Dashboard() {
 
-    const {admin} = useUser();
+    const {admin,setAdmin} = useUser();
     const navigate = useNavigate();
+    const [loading,setLoading] = useState(false)
 
     function logOutHandler() {
+        
+        setLoading(true);
         removeFromLocal('admin');
         axios
           .post(`${appVars.backendUrl}/api/admin/logout`, {}, {
@@ -20,6 +24,7 @@ function Dashboard() {
             },
           })
           .then((res) => {
+            setAdmin(null);
             toast.success(res.data.message);
           })
           .catch(() => {
@@ -33,12 +38,13 @@ function Dashboard() {
     }
 
     useEffect(() => {
-        if (!admin.token) {
+        if (!admin) {
           navigate('/');
         }
-    }, [admin.token, navigate]);
+    }, [admin, navigate]);
             
     return (
+
         <div>
             <Toaster/>
             <button className="flex text-white bg-black p-2 m-4 rounded-md ml-auto" onClick={logOutHandler}>Logout</button>
@@ -50,7 +56,7 @@ function Dashboard() {
                 </Link>
 
                 <Link to='getDomains' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
-                    <div className="p-3 font-bold text-xl">Get Domain</div>
+                    <div className="p-3 font-bold text-xl">Get Domains</div>
                 </Link>
 
                 <Link to='addTeacher' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
@@ -58,7 +64,7 @@ function Dashboard() {
                 </Link>
 
                 <Link to='getTeachers' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
-                    <div className="p-3 font-bold text-xl">Get Teacher</div>
+                    <div className="p-3 font-bold text-xl">Get Teachers</div>
                 </Link>
 
                 <Link to='addGroup' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
@@ -66,7 +72,7 @@ function Dashboard() {
                 </Link>
 
                 <Link to='getGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
-                    <div className="p-3 font-bold text-xl">Get Group</div>
+                    <div className="p-3 font-bold text-xl">Get Groups</div>
                 </Link>
 
                 <Link to='addStudent' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
@@ -74,10 +80,12 @@ function Dashboard() {
                 </Link>
 
                 <Link to='getStudents' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
-                    <div className="p-3 font-bold text-xl">Get Student</div>
+                    <div className="p-3 font-bold text-xl">Get Students</div>
                 </Link>
 
             </div>
+
+            {loading && <Loading/>}
 
         </div>
 
