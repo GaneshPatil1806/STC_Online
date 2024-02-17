@@ -13,9 +13,9 @@ export default function Addname() {
     name: '',
     password: '',
     email: '',
-    mobile_number: '',
+    mobile_number:  BigInt(0),
     reg_number: '',
-    fk_domain: ''
+    fk_domain:  BigInt(0)
   });
 
   const submitHandler = async(e)=> {
@@ -23,9 +23,6 @@ export default function Addname() {
 
     const formData = {};
     for (let [key, value] of Object.entries(teacher)) {
-      if (key === 'mobile_number' || key === 'fk_domain') {
-        value = parseInt(value);
-      }
       formData[key]=value;
     }
 

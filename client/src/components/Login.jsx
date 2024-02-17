@@ -8,9 +8,12 @@ import axios from 'axios';
 import { storeInLocal } from '../assets/local';
 import { useState, useEffect } from 'react';
 import {appVars} from '../conf/conf'
+import toast, { Toaster } from 'react-hot-toast';
+import Loading from '../common/Loading';
 
 function Login ({ type }) {
     const navigate = useNavigate();
+    const [loading,setLoading] = useState(false)
 
     const [dummyUser,setDummyUser] = useState({
         email:'',
@@ -19,24 +22,27 @@ function Login ({ type }) {
 
     const { user,setUser } = useUser();
 
-    function LoginHandler(e) {
+    function LoginHandler(e){
+        setLoading(true);
         e.preventDefault();
-        // console.log(dummyUser);
-        // console.log(appVars.backendUrl);
-
-        axios.post(`${appVars.backendUrl}/api/${type}/login`,dummyUser)
-        .then((res)=>(
-            JSON.stringify({...res.data.data,type:type})
-        ))
-        .then((data)=>{
-            storeInLocal('user',data.data)
-            setUser(JSON.parse(data))
-            navigate(`chat`)
-        }).catch((e)=>{
-            console.log('error',e);
-        })
+    
+        axios.post(`${appVars.backendUrl}/api/${type}/login`, dummyUser)
+          .then((res) => {
+            setTimeout(() => {
+              toast.success(res.data.message);
+              setLoading(false);
+              const data = JSON.stringify({ ...res.data.data, type: type });
+              storeInLocal('user', data);
+              setUser(JSON.parse(data));
+              navigate(`chat`);
+            }, 1000);
+          })
+          .catch((e) => {
+            setLoading(false);
+            toast.error(e.response.data.message);
+          });
     }
-
+          
     function changeHandler(e) {
         const { name, value } = e.target;
         
@@ -48,12 +54,12 @@ function Login ({ type }) {
 
     useEffect(() => {
         if (user && user.token) {
-          navigate(`${user.type}/chat`);
+          navigate(`/${user.type}/chat`);
         }
-      }, [user, navigate]);
+    }, [user, navigate]);
 
     return (
-        user.token ? navigate(`${user.type}/chat`) : 
+        user && user.token ? navigate(`/${user.type}/chat`) : 
         <UserContext.Provider value={user}>
             <div className="flex h-screen bg-white">
                 <div className="lg:w-6/12 md:relative">
@@ -64,7 +70,6 @@ function Login ({ type }) {
                 {type ? (
                     <div className="w-full lg:w-6/12 flex flex-col justify-center items-center lg:p-4">
                         <span className="text-xl mb-5">{type.toUpperCase()}</span>
-
                         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
@@ -96,20 +101,25 @@ function Login ({ type }) {
                                 />
                             </div>
 
+                            {loading && <Loading/>}
+
                             <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit" onClick={LoginHandler}>
                                 Submit
                             </button>
+
                         </form>
 
                         <Link to="/">
                             <p className="text-slate-500"> <FaArrowAltCircleLeft className="w-8 h-8 cursor-pointer" />BACK</p>
                         </Link>
+
+                        <Toaster/>
                     </div>
                 ) : (
                     <div className="flex flex-col w-full lg:w-6/12">
 
-                        <Link to="/admin" className='flex p-4 justify-end h-[15%]'>
-                            <button className="hover:underline">ADMIN</button>
+                        <Link to="/admin" className='flex mr-5 justify-end h-[15%]'>
+                            <button className="underline">ADMIN</button>
                         </Link>
 
                         <div className="flex flex-col justify-center items-center gap-10 h-[85%]">

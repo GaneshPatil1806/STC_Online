@@ -66,7 +66,9 @@ function Profile() {
       ) : <>
 
         <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
-        <p>{user[type].first_name}</p>
+        <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
+        <p>{user && user[type].email}</p>
+        
         <p>Other info...</p>
 
         <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>

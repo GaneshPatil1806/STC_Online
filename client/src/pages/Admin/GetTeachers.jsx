@@ -4,23 +4,30 @@ import useUser from "../../context/userContext";
 import { appVars } from "../../conf/conf";
 import toast, { Toaster } from 'react-hot-toast';
 import { MdDelete } from "react-icons/md";
+import Loading from "../../common/Loading";
 
 export default function GetTeacher() {
   const [teacher, setTeacher] = useState([]);
   const { admin } = useUser();
+  const [loading,setLoading] = useState(true);
 
   useEffect(() => {
-    axios.get(`${appVars.backendUrl}/api/teacherDashboard/teachers`, {
-      headers: {
-        Authorization: `Bearer ${admin.token}`,
-      },
-    })
-      .then((res) => setTeacher(res.data.data))
-      .catch((e) => console.log(e));
-  }, [admin.token,teacher]);
+    if(admin){
+      axios.get(`${appVars.backendUrl}/api/adminDashboard/teachers`, {
+        headers: {
+          Authorization: `Bearer ${admin.token}`,
+        },
+      })
+        .then((res) => {
+          setLoading(false)
+          setTeacher(res.data.data)
+        })
+        .catch(() => setLoading(false));
+    }
+  }, [admin,teacher]);
 
   function handleDelete(id) {
-    axios.delete(`${appVars.backendUrl}/api/teacherDashboard/delete/${id}`, {
+    axios.delete(`${appVars.backendUrl}/api/adminDashboard/deleteTeacher/${id}`, {
       headers: {
         Authorization: `Bearer ${admin.token}`
       }
@@ -32,17 +39,19 @@ export default function GetTeacher() {
   }
 
   return (
+    loading ? <Loading/> :
     <div className="flex flex-col items-center p-5">
       {
         teacher &&
         <>
           <p className="font-bold text-xl">Teachers</p>
           {teacher.map((element) => (
-            <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[20%] h-[30%] flex justify-between flex flex-col">
+            <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex justify-between flex-col">
               <p>Name: {element.name}</p>
               <p>Email: {element.email}</p>
-              <p>DomainId: {element.fk_domain}</p>
+              <p>Domain: {element.domain_name}</p>
               <p>Mobile Number: {element.mobile_number}</p>
+              <p>Teacher Id: {element.reg_number}</p>
               <div className="flex items-center cursor-pointer" onClick={() => handleDelete(element.id)}><span>Delete</span> <MdDelete className="rounded-md cursor-pointer text-xl"></MdDelete>
               <Toaster /></div>
             </div>

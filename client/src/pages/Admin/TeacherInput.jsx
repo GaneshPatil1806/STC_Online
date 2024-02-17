@@ -1,4 +1,4 @@
-import PropTypes from 'prop-types';
+/* eslint-disable react/prop-types */
 
 const TeacherInput = ({ label, placeholder, value, onChange }) => (
   <div className="mb-1">
@@ -16,12 +16,5 @@ const TeacherInput = ({ label, placeholder, value, onChange }) => (
     />
   </div>
 );
-
-TeacherInput.propTypes = {
-  label: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-  onChange: PropTypes.func.isRequired,
-};
 
 export default TeacherInput;

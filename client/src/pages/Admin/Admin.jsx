@@ -33,7 +33,7 @@ function Admin() {
 
   useEffect(() => {
     if (admin && admin.token) {
-      navigate(`dashboard`);
+      navigate('dashboard');
     }
   }, [admin, navigate]);
 
@@ -47,10 +47,9 @@ function Admin() {
   }
 
   return (
-    admin && admin.token ? navigate(`dashboard`) :
       <UserProvider value={admin}>
         <div className="w-full flex flex-col justify-center items-center h-screen">
-          <p className="text-xl p-2 font-bold">Login</p>
+          <p className="text-xl p-2 font-bold">Admin Login</p>
           <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
