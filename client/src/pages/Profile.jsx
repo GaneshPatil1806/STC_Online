@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import profileLogo from '../assets/images/profile.jpg';
 import { IoIosCloseCircle } from 'react-icons/io';
-import { getFromLocal, removeFromLocal } from '../assets/local'
+import { removeFromLocal } from '../assets/local'
 import { useNavigate } from 'react-router-dom';
 import useUser from '../context/userContext';
 import axios from 'axios';
@@ -24,15 +24,23 @@ function Profile({type}) {
   function handleLogOut() {
     
     setLoading(true);
-    axios.post(`${appVars.backendUrl}/api/${user.type === 'teacher' ? 'teacher' : 'student' }/logout`, {}, {
+    setUser(null);
+    removeFromLocal('user');
+    navigate('/')
+
+    let url = `${appVars.backendUrl}/api/student/logout`;
+
+    if(user.type === 'teacher'){
+       url = `${appVars.backendUrl}/api/teacher/logout`;
+    }
+
+    axios.post(url, {}, {
         headers: {
-          Authorization: `Bearer ${user.token}`,
+          Authorization: `Bearer ${user?.token}`,
         },
       })
       .then((res) => {
-        removeFromLocal('user');
         setLoading(false);
-        setUser(null);
         toast.success(res.data.message);
       })
       .catch(() => {
@@ -90,8 +98,8 @@ function Profile({type}) {
       ) : <>
 
         <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
-        <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
-        <p>{user && user[type].email}</p>
+        {/* <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
+        <p>{user && user[type].email}</p> */}
 
         <p>Other info...</p>
 

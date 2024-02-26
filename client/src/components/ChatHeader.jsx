@@ -12,9 +12,15 @@ export default function ChatHeader({activeGroupId}) {
   const [data,setData] = useState([]);
 
   useEffect(() => {
-    
+
     if (user) { 
-      axios.get(`${appVars.backendUrl}/api/teacherDashboard/studentsUnderGroup/${id}`, {
+
+      let url = `${appVars.backendUrl}/api/${user?.type}Dashboard/studentsUnderGroup/${id}`;
+
+      if(user.type === 'student'){
+        url = `${appVars.backendUrl}/api/${user?.type}Dashboard/studentsUnderGroup`;
+      }
+      axios.get(url , {
         headers: {
           Authorization: `Bearer ${user?.token}`,
         },
@@ -26,6 +32,8 @@ export default function ChatHeader({activeGroupId}) {
         .catch((e) => console.log(e));
     }
   }, [user,id]);
+
+  //console.log(data);
 
   return (
     <div>

@@ -19,6 +19,8 @@ import GetGroups from './pages/Admin/GetGroups';
 import ChatCard from './components/ChatCard';
 import ChatHeader from './components/ChatHeader';
 import Login from './components/Login'
+import AssignGroups from './pages/Admin/AssignGroups';
+// import EventScheduler from './components/MeetSchedule/EventScheduler';
 
 function App() {
 
@@ -60,7 +62,10 @@ function App() {
 
           <Route path="/admin/dashboard/addStudent" element={<AddStudent/>}></Route>
           <Route path="/admin/dashboard/getStudents" element={<GetStudents/>}></Route>
-          
+
+          <Route path="/admin/dashboard/assignGroups" element={<AssignGroups/>}></Route>
+
+          {/* <Route path="meet" element={<EventScheduler/>}></Route> */}
           
           <Route path="/:person/chat" element={<Chat />}>
             <Route path="group/:id" element={<ChatCard />} />

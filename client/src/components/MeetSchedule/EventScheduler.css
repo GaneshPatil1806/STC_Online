@@ -1,0 +1,70 @@
+/* EventScheduler.css */
+
+.bg-gray-800 {
+    background-color: #2d3748;
+}
+
+.bg-blue-500 {
+    background-color: #4299e1;
+}
+
+.text-white {
+    color: #ffffff;
+}
+
+.px-4 {
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.rounded {
+    border-radius: 0.375rem;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.fixed {
+    position: fixed;
+}
+
+.inset-0 {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.bg-opacity-75 {
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.bg-white {
+    background-color: #ffffff;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}

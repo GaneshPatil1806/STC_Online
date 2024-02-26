@@ -46,7 +46,7 @@ export default function GetTeacher() {
 
         <div className="flex justify-between absolute w-full">
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
-          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addTeacher')}>Add Domain</button>
+          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addTeacher')}>Add Teacher</button>
         </div>
 
         <div className="flex flex-col items-center p-5">

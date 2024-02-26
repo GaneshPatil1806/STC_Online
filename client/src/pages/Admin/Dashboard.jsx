@@ -83,6 +83,10 @@ function Dashboard() {
                     <div className="p-3 font-bold text-xl">Get Students</div>
                 </Link>
 
+                <Link to='assignGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
+                    <div className="p-3 font-bold text-xl">Assign Groups</div>
+                </Link>
+
             </div>
 
             {loading && <Loading/>}
