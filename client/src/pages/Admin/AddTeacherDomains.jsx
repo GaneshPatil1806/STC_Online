@@ -11,6 +11,7 @@ export default function AddTeacherDomains() {
     const [loading,setLoading] = useState(false);
     const [teachers, setTeachers] = useState([]);
     const [domains, setDomains] = useState([]);
+    const [selectedTeacher,setSelectedTeacher] = useState('');
 
     const [domainTeacher, setDomainTeacher] = useState({
         teacher_id: null,
@@ -18,8 +19,7 @@ export default function AddTeacherDomains() {
     });
 
     useEffect(() => {
-        axios
-            .get(`${appVars.backendUrl}/api/adminDashboard/teachers`, {
+        axios.get(`${appVars.backendUrl}/api/adminDashboard/teachers`, {
                 headers: {
                     Authorization: `Bearer ${admin.token}`,
                 },
@@ -27,8 +27,7 @@ export default function AddTeacherDomains() {
             .then((res) => {
                 // setLoading(false);
                 setTeachers(res.data.data);
-            })
-
+        })
     }, [admin]);
 
     function fetchDomains() {
@@ -48,6 +47,7 @@ export default function AddTeacherDomains() {
     const handleSelectedTeacher = (e) => {
         const id = e.target.value;
         domainTeacher.teacher_id = id;
+        setSelectedTeacher(id)
         fetchDomains();
     };
 
@@ -83,16 +83,19 @@ export default function AddTeacherDomains() {
     return (
         <div className="flex justify-center items-center h-screen">
             <form className="flex flex-col mb-4">
+                <p>Select Teacher</p>
                 <select
                     className="p-2 m-2 bg-gray-100 cursor-pointer outline-none"
                     onChange={handleSelectedTeacher}
-                    disabled={false}
+                    value={selectedTeacher}
                 >
-                    {teachers.map((teacher) => (
+                    <option selected="selected">Select Teacher</option>
+                    {teachers && teachers.map((teacher) => (
                         <option key={teacher.name} value={teacher.id}>
                             {teacher.name}
                         </option>
                     ))}
+
                 </select>
 
                 <label className="font-bold">Select Domains:</label>

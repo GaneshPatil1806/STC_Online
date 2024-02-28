@@ -70,7 +70,7 @@ export default function AssignGroups() {
 
   const handleTeacherChange = (e) => {
     setSelectedTeacher(e.target.value);
-   // setSelectedGroups([]);
+    // setSelectedGroups([]);
     fetchGroupsForTeacher();
   };
 
@@ -83,14 +83,14 @@ export default function AssignGroups() {
     //   updatedGroups.splice(index, 1);
     // }
     // setSelectedGroups(updatedGroups);
-    setSelectedGroup((prev)=> prev ===0 ? group : 0)
+    setSelectedGroup((prev) => prev === 0 ? group : 0)
   };
 
   const handleAssignGroups = () => {
     setLoading(true)
-  //  console.log({teacherId:parseInt(selectedTeacher), groupId:selectedGroup});
+    //  console.log({teacherId:parseInt(selectedTeacher), groupId:selectedGroup});
     axios
-      .post(`${appVars.backendUrl}/api/adminAllocation/allocateTeacher`,{teacherId:selectedTeacher, groupId:selectedGroup}, {
+      .post(`${appVars.backendUrl}/api/adminAllocation/allocateTeacher`, { teacherId: selectedTeacher, groupId: selectedGroup }, {
         headers: {
           Authorization: `Bearer ${admin.token}`,
         },
@@ -104,16 +104,17 @@ export default function AssignGroups() {
         toast.error(e.response.message)
       });
   };
-  
+
   return (
     <div>
-      {loading ? <div className="flex h-screen justify-center items-center"> <Loading/> </div>  : (
-        <div className="flex justify-center items-center mt-5 gap-4 bg-slate-200 p-4">
+      {loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> : (
+        <div className="flex items-center gap-4 bg-slate-200 p-4">
           <select
-            className="px-2 py-2 bg-gray-100 cursor-pointer outline-none mb-2"
+            className="px-2 py-2 bg-gray-100 cursor-pointer outline-none"
             value={selectedDomain}
             onChange={handleDomainChange}
           >
+           <option key='' value=''>Select Domain</option>
             {domains.map((domain) => (
               <option key={domain.id} value={domain.id}>
                 {domain.domain_name}
@@ -123,11 +124,12 @@ export default function AssignGroups() {
 
           {selectedDomain && (
             <select
-              className="px-2 py-2 bg-gray-100 cursor-pointer outline-none mb-2"
+              className="px-2 py-2 bg-gray-100 cursor-pointer outline-none"
               value={selectedTeacher}
               onChange={handleTeacherChange}
               disabled={false}
             >
+              <option key='' value=''>Select Teacher</option>
               {teachersUnderDomain.map((teacher) => (
                 <option key={teacher.name} value={teacher.id}>
                   {teacher.name}
@@ -136,26 +138,28 @@ export default function AssignGroups() {
             </select>
           )}
 
-          {selectedTeacher && groups.length > 0 && (
-            <div>
-              <p className="px-2 py-2 bg-gray-100 cursor-pointer outline-none mb-2">Select student groups:</p>
-              {groups.map((group) => (
-                <div key={group.id}>
-                  <input
-                    type="checkbox"
-                    id={group.id}
-                    checked={selectedGroup === group.id}
-                    onChange={() => handleCheckboxChange(group.id)}
-                  />
-                  <label htmlFor={group.id}>{group.group_name}</label>
-                </div>
-              ))}
-            </div>
-          )}
+          <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
         </div>
       )}
 
-    <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
+      {selectedTeacher && groups.length > 0 && (
+        <div>
+          <p className="px-2 py-2 bg-gray-200 cursor-pointer outline-none mb-2 font-bold">Select student groups:</p>
+
+          {groups.map((group) => (
+            <div key={group.id} className="m-2">
+              <input
+                type="checkbox"
+                id={group.id}
+                checked={selectedGroup === group.id}
+                onChange={() => handleCheckboxChange(group.id)}
+                value="name"
+              />
+              <label className="m-2" htmlFor={group.id}>{group.group_name}</label>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

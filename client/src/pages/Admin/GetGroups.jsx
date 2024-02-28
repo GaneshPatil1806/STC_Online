@@ -57,7 +57,7 @@ export default function GetGroups() {
               {groups.map((element) => (
                 <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex flex-col">
                   <p>Group Name: {element.group_name}</p>
-                  <p>fk_group: {element.id}</p>
+                  <p>GroupId: {element.id}</p>
                   <p>TeacherId: {element.fk_teacher}</p>
                   <div className="flex items-center"><p>Delete</p><MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)}></MdDelete></div>
                   <Toaster />
