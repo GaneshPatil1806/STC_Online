@@ -75,7 +75,8 @@ function App() {
             <Route path="group/:id" element={<ChatHeader />} />
           </Route>
           
-          <Route path="/student/createGroup" element={<CreateGroup/>} /> 
+          <Route path="/student/createGroup" element={<CreateGroup/>} />
+          <Route path="/student/register" element={<AddStudent/>} /> 
 
         </Routes>
       </Router>

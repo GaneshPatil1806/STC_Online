@@ -4,11 +4,12 @@ import { appVars } from "../../conf/conf";
 import useUser from "../../context/userContext";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import Loading from '../../common/Loading'
 
 export default function AddTeacherDomains() {
     const { admin } = useUser();
+    const [loading,setLoading] = useState(false);
     const [teachers, setTeachers] = useState([]);
-    const [selectedTeacher, setSelectedTeacher] = useState('Teacher');
     const [domains, setDomains] = useState([]);
 
     const [domainTeacher, setDomainTeacher] = useState({
@@ -32,13 +33,13 @@ export default function AddTeacherDomains() {
 
     function fetchDomains() {
         axios
-            .get(`${appVars.backendUrl}/api/domain`, {
+            .get(`${appVars.backendUrl}/api/adminAllocation/domainNotTeacher/${domainTeacher?.teacher_id}`, {
                 headers: {
                     Authorization: `Bearer ${admin.token}`,
                 },
             })
             .then((res) => {
-                //console.log(he);
+               // console.log(res.data.data);
                 setDomains(res.data.data);
             })
             .catch((e) => console.log(e));
@@ -64,34 +65,31 @@ export default function AddTeacherDomains() {
     
     const handleAssign = (e) => {
         e.preventDefault();
-        console.log(domainTeacher);
+        setLoading(true);
         axios.post(`${appVars.backendUrl}/api/adminAllocation/doaminTeacherAllocation`,domainTeacher,{
             headers: {
                 Authorization: `Bearer ${admin.token}`,
             },
         }).then((res)=>{
-            toast.success(res.data.data.message)
-            console.log(res.data.message);
+            toast.success(res.data.message)
+            setLoading(false)
         }).catch((e)=>{
             toast.error(e.response.message)
+            setLoading(false)
             console.log(e);
         })
     }
-
-    //console.log(domains);
-
-   // console.log(domainTeacher.domains_id);
 
     return (
         <div className="flex justify-center items-center h-screen">
             <form className="flex flex-col mb-4">
                 <select
                     className="p-2 m-2 bg-gray-100 cursor-pointer outline-none"
-                    value={selectedTeacher}
                     onChange={handleSelectedTeacher}
+                    disabled={false}
                 >
                     {teachers.map((teacher) => (
-                        <option key={teacher.id} value={teacher.id}>
+                        <option key={teacher.name} value={teacher.id}>
                             {teacher.name}
                         </option>
                     ))}
@@ -111,8 +109,9 @@ export default function AddTeacherDomains() {
                     </div>
                 ))}
 
-
                 <button onClick={handleAssign} type="submit" className="bg-black p-2 rounded-sm text-white">Fetch</button>
+
+                {loading && <Loading/>}
             </form>
         </div>
     );

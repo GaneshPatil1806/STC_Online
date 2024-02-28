@@ -113,6 +113,8 @@ function Login ({ type }) {
                             <p className="text-slate-500"> <FaArrowAltCircleLeft className="w-8 h-8 cursor-pointer" />BACK</p>
                         </Link>
 
+                        <button onClick={() => navigate('/student/register')}>Not registered? SignUp Here</button>
+
                         <Toaster/>
                     </div>
                 ) : (
