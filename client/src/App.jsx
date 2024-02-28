@@ -12,7 +12,7 @@ import AddStudent from './pages/Admin/AddStudent';
 import AddGroup from './pages/Admin/AddGroup';
 
 import GetDomains from './pages/Admin/GetDomains';
-import GetTeachers from './pages/Admin/getTeachers';
+import GetTeachers from './pages/Admin/GetTeachers';
 import GetStudents from './pages/Admin/GetStudents';
 import GetGroups from './pages/Admin/GetGroups';
 
@@ -20,6 +20,8 @@ import ChatCard from './components/ChatCard';
 import ChatHeader from './components/ChatHeader';
 import Login from './components/Login'
 import AssignGroups from './pages/Admin/AssignGroups';
+import AddTeacherDomains from './pages/Admin/AddTeacherDomains';
+import CreateGroup from './pages/Student/CreateGroup';
 // import EventScheduler from './components/MeetSchedule/EventScheduler';
 
 function App() {
@@ -64,6 +66,7 @@ function App() {
           <Route path="/admin/dashboard/getStudents" element={<GetStudents/>}></Route>
 
           <Route path="/admin/dashboard/assignGroups" element={<AssignGroups/>}></Route>
+          <Route path="/admin/dashboard/assignTeacherDomains" element={<AddTeacherDomains/>}></Route>
 
           {/* <Route path="meet" element={<EventScheduler/>}></Route> */}
           
@@ -71,6 +74,8 @@ function App() {
             <Route path="group/:id" element={<ChatCard />} />
             <Route path="group/:id" element={<ChatHeader />} />
           </Route>
+          
+          <Route path="/student/createGroup" element={<CreateGroup/>} /> 
 
         </Routes>
       </Router>

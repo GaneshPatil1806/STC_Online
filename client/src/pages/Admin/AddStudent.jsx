@@ -3,10 +3,12 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
+import Loading from "../../common/Loading";
 
 export default function AddStudent() {
 
   const navigate = useNavigate();
+  const [loading,setLoading] = useState(false);
   
   const [formData, setFormData] = useState({
     first_name: "",
@@ -16,8 +18,6 @@ export default function AddStudent() {
     mobile_number: BigInt(0),
     roll_number: BigInt(0),
     reg_number: "",
-    fk_group: "",
-    fk_domain: "",
   });
 
   function handleChange(e) {
@@ -31,9 +31,21 @@ export default function AddStudent() {
   function submitHandler(e) {
     e.preventDefault();
 
-    //console.log(formData);
+    setLoading(true);
     axios.post(`${appVars.backendUrl}/api/student/signup`, formData)
       .then((res) => {
+
+        setFormData({
+          first_name: "",
+          last_name: "",
+          email: "",
+          password: "",
+          mobile_number: BigInt(0),
+          roll_number: BigInt(0),
+          reg_number: "",
+        });
+
+        setLoading(false)
         toast.success(res.data.message);
       })
       .catch((e) => {
@@ -42,7 +54,6 @@ export default function AddStudent() {
   }
 
   return (
-
     <>
       <div className="flex justify-between absolute w-full">
         <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
@@ -61,16 +72,20 @@ export default function AddStudent() {
                 className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
                 id={key}
                 name={key}
-                type={typeof (value)}
+                type={ key === 'password' ? 'password' : 'text'}
                 placeholder={key.replace(/_/g, ' ')}
                 value={value}
                 onChange={handleChange}
               />
             </div>
           ))}
+          
           <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
+
+          {loading && <Loading/>}
+          
           <Toaster />
         </form>
       </div>

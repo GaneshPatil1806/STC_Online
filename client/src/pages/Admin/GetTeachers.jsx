@@ -7,7 +7,7 @@ import { MdDelete } from "react-icons/md";
 import Loading from "../../common/Loading";
 import { useNavigate } from "react-router-dom";
 
-export default function GetTeacher() {
+export default function GetTeachers() {
   const [teacher, setTeacher] = useState([]);
   const { admin } = useUser();
   const [loading, setLoading] = useState(true);
@@ -39,6 +39,8 @@ export default function GetTeacher() {
       toast.error(e.response.data.message || 'Error Deleting teacher');
     })
   }
+
+  //console.log(teacher);
 
   return (
     loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :

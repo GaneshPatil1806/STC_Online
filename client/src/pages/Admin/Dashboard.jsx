@@ -25,6 +25,7 @@ function Dashboard() {
           })
           .then((res) => {
             setAdmin(null);
+            //console.log('admin logged out');
             toast.success(res.data.message);
           })
           .catch(() => {
@@ -33,7 +34,7 @@ function Dashboard() {
           .finally(() => {
             setTimeout(() => {
                 navigate('/');
-            }, 1000);
+            }, 2000);
           });
     }
 
@@ -85,6 +86,10 @@ function Dashboard() {
 
                 <Link to='assignGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
                     <div className="p-3 font-bold text-xl">Assign Groups</div>
+                </Link>
+
+                <Link to='assignTeacherDomains' className="h-[60%] w-[25%] bg-gradient-to-r from-violet-600 to-violet-300 rounded-lg m-5 flex justify-center items-center">
+                    <div className="p-3 font-bold text-xl">Assign Teacher Domains</div>
                 </Link>
 
             </div>

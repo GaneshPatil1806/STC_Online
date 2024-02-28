@@ -61,8 +61,8 @@ export default function GetStudents() {
                   <p>First Name: {element.first_name}</p>
                   <p>Last Name: {element.last_name}</p>
                   <p>Roll Number: {element.roll_number}</p>
-                  <p>Domain: {element.fk_domain}</p>
-                  <p>Roll Number: {element.fk_group}</p>
+                  {/* <p>Domain: {element.fk_domain}</p> */}
+                  <p>Registration Number Number: {element.reg_number}</p>
                   <div className="flex items-center">
                     <p>Delete</p>
                     <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)}>Delete</MdDelete></div>

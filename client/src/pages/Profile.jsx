@@ -10,15 +10,21 @@ import toast, { Toaster } from 'react-hot-toast';
 import { appVars } from '../conf/conf';
 import Loading from '../common/Loading';
 
-function Profile({type}) {
+function Profile() {
   const [displayEdit, setDisplayEdit] = useState(false);
   const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { user, setUser } = useUser();
 
-  function passwordHandler() {
-    // change password stuff
+  function passwordHandler(e) {
+    e.preventDefault();
+    // console.log('hi');
+    //   axios.get(`${appVars.backendUrl}/api/teacherDashboard/teacherDomains`,{
+    //     headers: {
+    //       Authorization: `Bearer ${user?.token}`,
+    //     },
+    //   }).then((res)=>{console.log('hi'),console.log(res.data)}).catch((e)=>(console.log(e)))
   }
 
   function handleLogOut() {

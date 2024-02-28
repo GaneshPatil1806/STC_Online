@@ -46,7 +46,6 @@ export default function AssignGroups() {
 
   const fetchGroupsForTeacher = () => {
 
-    // got the domain groups
     setLoading(true);
     axios
       .get(`${appVars.backendUrl}/api/adminDashboard/getDomainGroup/${selectedTeacher}`, {
@@ -86,9 +85,11 @@ export default function AssignGroups() {
     setSelectedGroups(updatedGroups);
   };
 
-  const handleAssignGroups = () => {
+  // const handleAssignGroups = () => {
     
-  };
+  // };
+
+  //console.log(teachersUnderDomain);
 
   return (
     <div>
