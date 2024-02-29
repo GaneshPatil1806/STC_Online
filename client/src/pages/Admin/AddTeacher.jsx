@@ -62,7 +62,7 @@ export default function Addname() {
 
       <div className="flex flex-col justify-center items-center h-screen">
         <p className="mb-1">Add Teacher</p>
-        <form className="bg-slate-200 shadow-md rounded px-3 pt-6 pb-1 mb-1" onSubmit={submitHandler}>
+        <form className="bg-slate-300 shadow-md rounded px-3 pt-6 pb-1 mb-1" onSubmit={submitHandler}>
 
           <TeacherInput
             label="Name"
@@ -101,7 +101,8 @@ export default function Addname() {
             value={teacher.designation}
             onChange={(e) => teacher && setTeacher((prev) => ({ ...prev, designation: e.target.value }))}    
           >
-
+            
+            <option selected="selected" value="select_desig">Select Designation</option>
             {selectDesignation.map((des) => (
               <option key={des} value={des}>
                 {des}

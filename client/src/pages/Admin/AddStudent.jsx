@@ -4,6 +4,7 @@ import { appVars } from "../../conf/conf";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
+import useUser from "../../context/userContext";
 
 export default function AddStudent() {
 
@@ -27,6 +28,8 @@ export default function AddStudent() {
       [e.target.name]: e.target.value
     });
   }
+
+  const {admin} = useUser();
 
   function submitHandler(e) {
     e.preventDefault();
@@ -53,16 +56,20 @@ export default function AddStudent() {
       });
   }
 
+ // console.log(admin);
+
   return (
     <>
-      <div className="flex justify-between absolute w-full">
-        <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
-        <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/getStudents')}>Fetch Students</button>
-      </div>
+      {
+        admin && admin.token && <div className="flex justify-between absolute w-full">
+          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
+          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/getStudents')}>Fetch Students</button>
+        </div>
+      }
 
       <div className="flex justify-center items-center h-screen flex-col">
         <p>Add New Student</p>
-        <form className="bg-slate-200 shadow-md rounded p-4 overflow-auto h-[60%] m-4" onSubmit={submitHandler}>
+        <form className="bg-slate-300 shadow-md rounded p-4 overflow-auto h-[60%] m-4 border-b-2 border-white" onSubmit={submitHandler}>
           {Object.entries(formData).map(([key, value]) => (
             <div key={key}>
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor={key}>

@@ -45,17 +45,19 @@ export default function GetStudents() {
   return (
     loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :
 
-      <>
+      <div className="flex flex-col items-center">
 
-        <div className="flex justify-between absolute w-full">
+        <div className="flex justify-between w-full">
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addStudent')}>Add Student</button>
         </div>
-        <div className="flex flex-col items-center p-5">
+
+        <p className="font-bold text-xl">Students</p>
+
+        <div className="flex flex-wrap items-center p-5">
           {
             students &&
             <>
-              <p className="font-bold text-xl">Students</p>
               {students.map((element) => (
                 <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] lg:w-[20%] h-[30%] flex flex-col">
                   <p>First Name: {element.first_name}</p>
@@ -71,6 +73,6 @@ export default function GetStudents() {
               ))}</>
           }
         </div>
-      </>
+      </div>
   );
 }

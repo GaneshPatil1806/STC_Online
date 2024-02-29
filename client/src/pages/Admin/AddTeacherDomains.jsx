@@ -3,7 +3,7 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import useUser from "../../context/userContext";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import  { Toaster,toast } from "react-hot-toast";
 import Loading from '../../common/Loading'
 
 export default function AddTeacherDomains() {
@@ -65,6 +65,11 @@ export default function AddTeacherDomains() {
     
     const handleAssign = (e) => {
         e.preventDefault();
+        if(domainTeacher.domains_id.length === 0){
+            toast.error('Select the domain first');
+            return;
+        }
+
         setLoading(true);
         axios.post(`${appVars.backendUrl}/api/adminAllocation/doaminTeacherAllocation`,domainTeacher,{
             headers: {
@@ -82,8 +87,9 @@ export default function AddTeacherDomains() {
 
     return (
         <div className="flex justify-center items-center h-screen">
-            <form className="flex flex-col mb-4">
-                <p>Select Teacher</p>
+            <Toaster/>
+            <form className="bg-slate-300 shadow-md rounded p-4 m-2 flex flex-col border-b-2 border-white">
+                <p className="font-bold">Select Teacher: </p>
                 <select
                     className="p-2 m-2 bg-gray-100 cursor-pointer outline-none"
                     onChange={handleSelectedTeacher}

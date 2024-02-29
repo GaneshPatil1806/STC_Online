@@ -45,7 +45,7 @@ export default function AddDomain() {
       <div className="flex justify-center items-center h-screen flex-col">
 
         <p>Add New Domain</p>
-        <form className="bg-slate-200 shadow-md rounded p-4 m-2" onSubmit={submitHandler}>
+        <form className="bg-slate-300 rounded p-4 m-2 border-b-2 border-white" onSubmit={submitHandler}>
 
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="domain">
             Domain

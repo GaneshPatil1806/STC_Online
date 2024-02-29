@@ -57,12 +57,13 @@ export default function GetTeachers() {
             <>
               <p className="font-bold text-xl">Teachers</p>
               {teacher.map((element) => (
-                <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex justify-between flex-col">
+                <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex justify-between flex-col shadow-md border-b-2 border-white">
                   <p>Name: {element.name}</p>
                   <p>Email: {element.email}</p>
                   <p>Domain: {element.domain_name}</p>
                   <p>Mobile Number: {element.mobile_number}</p>
                   <p>Teacher Id: {element.reg_number}</p>
+                  <p>Designation: {element.designation}</p>
                   <div className="flex items-center cursor-pointer" onClick={() => handleDelete(element.id)}><span>Delete</span> <MdDelete className="rounded-md cursor-pointer text-xl"></MdDelete>
                     <Toaster /></div>
                 </div>

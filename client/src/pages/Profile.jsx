@@ -32,7 +32,6 @@ function Profile() {
     setLoading(true);
     setUser(null);
     removeFromLocal('user');
-    navigate('/')
 
     let url = `${appVars.backendUrl}/api/student/logout`;
 
@@ -53,9 +52,7 @@ function Profile() {
         toast.error('Logout failed!');
       })
       .finally(() => {
-        setTimeout(() => {
-          navigate('/');
-        }, 1000);
+        navigate('/');
       });
   }
 
