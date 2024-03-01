@@ -27,11 +27,11 @@ export default function GetStudents() {
       .catch(() => {
         setLoading(false);
       });
-  }, [admin.token]);
+  }, [admin.token,students]);
 
 
   function handleDelete(id) {
-    axios.delete(`${appVars.backendUrl}/api/student/delete/${id}`, {
+    axios.delete(`${appVars.backendUrl}/api/adminDashboard/deleteStudent/${id}`, {
       headers: {
         Authorization: `Bearer ${admin?.token}`
       }
@@ -54,17 +54,17 @@ export default function GetStudents() {
 
         <p className="font-bold text-xl">Students</p>
 
-        <div className="flex flex-wrap items-center p-5">
+        <div className="flex flex-wrap items-center justify-center p-5">
           {
             students &&
             <>
               {students.map((element) => (
-                <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] lg:w-[20%] h-[30%] flex flex-col">
+                <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] lg:w-[25%] h-[30%] flex flex-col">
                   <p>First Name: {element.first_name}</p>
                   <p>Last Name: {element.last_name}</p>
                   <p>Roll Number: {element.roll_number}</p>
                   {/* <p>Domain: {element.fk_domain}</p> */}
-                  <p>Registration Number Number: {element.reg_number}</p>
+                  <p>Registration Number: {element.reg_number}</p>
                   <div className="flex items-center">
                     <p>Delete</p>
                     <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)}>Delete</MdDelete></div>

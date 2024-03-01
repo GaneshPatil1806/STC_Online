@@ -34,6 +34,14 @@ export default function Addname() {
       },
     })
       .then((res) => {
+        setTeacher({
+          name: '',
+          password: '',
+          email: '',
+          mobile_number: '',
+          reg_number: '',
+          designation: ''
+        });
         toast.success(res.data.message);
       })
       .catch((e) => {

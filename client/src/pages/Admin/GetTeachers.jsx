@@ -15,7 +15,7 @@ export default function GetTeachers() {
 
   useEffect(() => {
     if (admin) {
-      axios.get(`${appVars.backendUrl}/api/adminDashboard/teachers`, {
+      axios.get(`${appVars.backendUrl}/api/adminDashboard/getDomainAndTeacher`, {
         headers: {
           Authorization: `Bearer ${admin.token}`,
         },
@@ -40,27 +40,28 @@ export default function GetTeachers() {
     })
   }
 
-  //console.log(teacher);
+ // console.log(teacher);
 
   return (
     loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :
-      <>
+      <div className="flex flex-col items-center">
 
-        <div className="flex justify-between absolute w-full">
+        <div className="flex justify-between w-full">
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addTeacher')}>Add Teacher</button>
         </div>
 
-        <div className="flex flex-col items-center p-5">
+        <p className="font-bold text-xl">Teachers</p>
+
+        <div className="flex flex-wrap items-center justify-center p-5">
           {
             teacher &&
             <>
-              <p className="font-bold text-xl">Teachers</p>
               {teacher.map((element) => (
-                <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex justify-between flex-col shadow-md border-b-2 border-white">
+                <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg flex flex-col w-[55%] lg:w-[50%] h-[40%] ">
                   <p>Name: {element.name}</p>
                   <p>Email: {element.email}</p>
-                  <p>Domain: {element.domain_name}</p>
+                  <p>Domain: {element.domains.map((domain,index)=>(<span key={domain.id}>{domain.domain_name}{index !== element.domains.length-1 ? ', ' : '' }</span>))}</p>
                   <p>Mobile Number: {element.mobile_number}</p>
                   <p>Teacher Id: {element.reg_number}</p>
                   <p>Designation: {element.designation}</p>
@@ -70,6 +71,6 @@ export default function GetTeachers() {
               ))}</>
           }
         </div>
-      </>
+      </div>
   );
 }

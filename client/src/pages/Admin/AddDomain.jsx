@@ -27,6 +27,7 @@ export default function AddDomain() {
     })
       .then((res) => {
         setLoading(false);
+        setDomain('');
         toast.success(res.data.message);
       })
       .catch((e) => {

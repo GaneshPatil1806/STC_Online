@@ -10,7 +10,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { appVars } from '../conf/conf';
 import Loading from '../common/Loading';
 
-function Profile() {
+function Profile({type}) {
   const [displayEdit, setDisplayEdit] = useState(false);
   const [loading,setLoading] = useState(false);
 
@@ -57,7 +57,7 @@ function Profile() {
   }
 
   return (
-    <div className="left-[5%] w-full lg:w-[25%] bg-white flex items-center flex-col h-screen">
+    <div className="left-[5%] w-full lg:w-[25%] bg-white flex items-center flex-col h-screen border border-black">
 
       <Toaster/>
       {loading && <Loading/>}
@@ -104,8 +104,11 @@ function Profile() {
         {/* <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
         <p>{user && user[type].email}</p> */}
 
-        <p>Other info...</p>
-
+        { user && <>
+          <p>Name: {user.type === 'student' ? user[type].first_name + user[type].last_name  : ''}</p>
+          <p>Email: {user[type].email}</p>
+          <p>Mobile: {user[type].mobile_number}</p>
+        </>}
         <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>
       </>}
 

@@ -65,8 +65,8 @@ function Dashboard() {
                     <div className="p-3 font-bold text-xl">Get Teachers</div>
                 </Link>
 
-                <Link to='addGroup' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
-                    <div className="p-3 font-bold text-xl">Add Group</div>
+                <Link to='assignGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
+                    <div className="p-3 font-bold text-xl">Assign Groups</div>
                 </Link>
 
                 <Link to='getGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
@@ -79,10 +79,6 @@ function Dashboard() {
 
                 <Link to='getStudents' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
                     <div className="p-3 font-bold text-xl">Get Students</div>
-                </Link>
-
-                <Link to='assignGroups' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
-                    <div className="p-3 font-bold text-xl">Assign Groups</div>
                 </Link>
 
                 <Link to='assignTeacherDomains' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">

@@ -143,7 +143,7 @@ export default function ChatCard() {
     anchor.click();
   }
 
-  //console.log(chats);
+  //console.log("hi",chats);
 
   return (
     <div className="h-full flex flex-col bg-slate-200">

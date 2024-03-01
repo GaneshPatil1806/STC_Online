@@ -105,9 +105,10 @@ export default function AssignGroups() {
                     Authorization: `Bearer ${admin.token}`,
                 },
             })
-            .then((res) => {
+            .then(() => {
                 setLoading(false);
-                toast.success(res.data.message);
+                toast.success('Groups allocated!');
+                fetchGroupsForTeacher();
             })
             .catch((e) => {
                 setLoading(false);
