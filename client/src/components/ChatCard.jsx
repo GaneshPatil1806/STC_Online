@@ -17,7 +17,6 @@ import {
   Input,
   Button,
   Popup,
-  SideBar,
   Navbar,
   Dropdown,
   Avatar
@@ -69,8 +68,11 @@ export default function ChatCard() {
         toast.error(error.response.data.message || 'Upload error');
       });
   };
+
+  //console.log(chats);
   
-  useEffect(() => {
+  useEffect(() => 
+  {
     if(user){
       let url = `${appVars.backendUrl}/api/studentChat/group`;
 
@@ -88,17 +90,19 @@ export default function ChatCard() {
     }
   }, [user, id, chats])
 
-  const handleSend = () => {
+  const handleSend = () => 
+  {
 
-    const data = {
-      suggestion_text: message
-    }
+    const data = {}
 
     let url = `${appVars.backendUrl}/api/studentSuggestions/create`;
 
     if(user.type === 'teacher'){
       url = `${appVars.backendUrl}/api/teacherSuggestions/create`
       data["fk_group"] = parseInt(id)
+      data["data"]=message;
+    }else{
+      data["datas"]=message;
     }
 
     axios.post(url, data, {
@@ -115,24 +119,6 @@ export default function ChatCard() {
       })
   }
 
-   // Attach event listener to detect Ctrl + S
-   useEffect(() => {
-    const handleSave = (event) => {
-      if (event.ctrlKey && event.key === 's') {
-        event.preventDefault(); // Prevent default browser save behavior
-        //uploadFile();
-        console.log('save button pressed');
-      }
-    };
-
-    document.addEventListener('keydown', handleSave);
-
-    return () => {
-      document.removeEventListener('keydown', handleSave);
-    };
-  }, []);
-
-
 
   const downloadDoc = (link) =>{
 
@@ -143,7 +129,7 @@ export default function ChatCard() {
     anchor.click();
   }
 
-  //console.log("hi",chats);
+  //console.log(chats);
 
   return (
     <div className="h-full flex flex-col bg-slate-200">
@@ -155,12 +141,12 @@ export default function ChatCard() {
             title={message.uploader_name}
             key={message.uploaded_at}
             position={ (message.teacher_uploaded === true && user.type==='teacher')  || (message.teacher_uploaded === false && user.type==='student')  ? 'right' : 'left'}
-            type={ message.is_file_data
+            type={ message.is_file
                === true ? "file" : "text"}
-            text={ message.is_file_data ? message.data_link.substring(
-              message.data_link.indexOf('_') + 1,
-              message.data_link.indexOf('?')
-            ) : message.data_link}
+            text={ message.is_file ? message.data.substring(
+              message.data.indexOf('_') + 1,
+              message.data.indexOf('?')
+            ) : message.data}
             data={{
               uri: '',
               status: {

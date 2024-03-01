@@ -69,7 +69,7 @@ function Chat() {
           {/* Sidebar */}
           <div className="w-14 lg:w-[5%] h-screen border border-r-grey flex flex-col items-center bg-gray-100">
             <p className="flex justify-center items-center h-7 w-7 md:h-10 md:w-10 my-2 cursor-pointer bg-gray-300 rounded-lg text-black hover:bg-black hover:text-white" onClick={toggleProfile}>
-              {/* {user && user.type === "teacher" ? user[user.type].name.charAt(0).toUpperCase() : user.type.first_name.charAt(0).toUpperCase()} */}
+              {user && user.type === "teacher" ? user[user.type].name.charAt(0).toUpperCase() : user.type.first_name.charAt(0).toUpperCase()}
             </p>
           </div>
 
