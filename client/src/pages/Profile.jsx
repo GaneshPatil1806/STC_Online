@@ -10,12 +10,16 @@ import toast, { Toaster } from 'react-hot-toast';
 import { appVars } from '../conf/conf';
 import Loading from '../common/Loading';
 
-function Profile({type}) {
+function Profile() {
   const [displayEdit, setDisplayEdit] = useState(false);
   const [loading,setLoading] = useState(false);
 
   const navigate = useNavigate();
   const { user, setUser } = useUser();
+  let type;
+  if(user){
+    type = user.type;
+  }
 
   function passwordHandler(e) {
     e.preventDefault();
@@ -30,9 +34,6 @@ function Profile({type}) {
   function handleLogOut() {
     
     setLoading(true);
-    setUser(null);
-    removeFromLocal('user');
-
     let url = `${appVars.backendUrl}/api/student/logout`;
 
     if(user.type === 'teacher'){
@@ -52,12 +53,14 @@ function Profile({type}) {
         toast.error('Logout failed!');
       })
       .finally(() => {
+        setUser(null);
+        removeFromLocal('user');
         navigate('/');
       });
   }
 
   return (
-    <div className="left-[5%] w-full lg:w-[25%] bg-white flex items-center flex-col h-screen border border-black">
+    <div className="left-[5%] w-full lg:w-[25%] bg-slate-200 flex items-center flex-col h-screen border border-r-slate-400 border-l-slate-400">
 
       <Toaster/>
       {loading && <Loading/>}
@@ -100,15 +103,15 @@ function Profile({type}) {
         </form>
       ) : <>
 
-        <img className="w-[50%] md:w-[80%]" src={profileLogo} alt="Profile" />
+        <img className="w-[30%] md:w-[30%]" src={profileLogo} alt="Profile" />
         {/* <p>{user && user.type === 'teacher' ? user.teacher.name : user.student.first_name}</p>
         <p>{user && user[type].email}</p> */}
 
-        { user && <>
-          <p>Name: {user.type === 'student' ? user[type].first_name + user[type].last_name  : ''}</p>
-          <p>Email: {user[type].email}</p>
-          <p>Mobile: {user[type].mobile_number}</p>
-        </>}
+        { user && <div className='flex flex-col p-1'>
+          <p>Name: {user.type === 'student' ? user[type].first_name + " " + user[type].last_name  : user[type].name}</p>
+          <p>Email:  {user[type].email}</p>
+          <p>Mobile:  {user[type].mobile_number}</p>
+        </div>}
         <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>
       </>}
 

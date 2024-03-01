@@ -34,7 +34,6 @@ function Chat() {
     }
   }, [loading, user])
 
-
   useEffect(() => {
 
     if (user) {
@@ -59,27 +58,24 @@ function Chat() {
     }
   }, [user,navigate]);
 
- // console.log(groups.length);
- //console.log(groups);
-
   return (
     loading ? <Loading /> :
-        <div className="flex flex-row h-screen">
+        <div className={`flex flex-row h-screen ${!activeGroup.id ? 'bg-slate-200' : ''}`}>
 
           {/* Sidebar */}
-          <div className="w-14 lg:w-[5%] h-screen border border-r-grey flex flex-col items-center bg-gray-100">
-            <p className="flex justify-center items-center h-7 w-7 md:h-10 md:w-10 my-2 cursor-pointer bg-gray-300 rounded-lg text-black hover:bg-black hover:text-white" onClick={toggleProfile}>
-              {user && user.type === "teacher" ? user[user.type].name.charAt(0).toUpperCase() : user.type.first_name.charAt(0).toUpperCase()}
+          <div className="w-20 lg:w-[5%] h-screen border border-r-grey flex flex-col items-center bg-gray-100">
+            <p className="flex justify-center items-center h-10 w-10 md:h-10 md:w-10 my-2 cursor-pointer bg-gray-300 rounded-lg text-black hover:bg-black hover:text-white" onClick={toggleProfile}>
+              {user && user.type === "teacher" ? user[user.type].name.charAt(0).toUpperCase() : user[user.type].first_name.charAt(0).toUpperCase()}
             </p>
           </div>
 
           {/* Group list */}
 
-          {showProfile ? <Profile isVisible={showProfile} type={user?.type} /> :
+          {showProfile ? <Profile isVisible={showProfile} /> :
 
-            <div className={`w-full lg:w-[25%] border border-r-black ${activeGroup.id ? 'hidden sm:block' : ''}`}>
+            <div className={`w-full lg:w-[25%] border border-r-slate-400 border-l-slate-400 ${activeGroup.id!==null ? 'hidden sm:block' : ''}`}>
               {/* STC */}
-              <div className="h-12 lg:h-[10%] border border-b-grey flex items-center justify-center">
+              <div className="h-12 lg:h-[10%] border border-b-slate-400 flex items-center justify-center">
                 <p>STC</p>
               </div>
 
@@ -96,16 +92,16 @@ function Chat() {
             </div>}
 
           {/* Chat section */}
-          <div className={`flex flex-col h-screen w-full lg:w-[70%]  overflow-hidden ${activeGroup ? `${showProfile ? 'hidden lg:block' : ''}` : 'hidden'}`}>
+          <div className={`flex flex-col h-screen w-full lg:w-[70%]  overflow-hidden ${activeGroup.id!==null ? `${showProfile ? 'hidden lg:block' : ''}` : 'hidden'}`}>
             {/* Content */}
 
-            <div className="flex items-center h-12 lg:h-[10%] border border-b-grey px-4">
-              <Link to={``}><AiOutlineLeft className="w-6 h-6 text-gray-500 hover:text-black" onClick={() => setActiveGroup((prev)=>!(prev))} /></Link>
-              {activeGroup.id && <ChatHeader activeGroup={activeGroup} />}
+            <div className="flex items-center h-12 lg:h-[10%] border border-b-slate-400 px-4">
+              <Link to={``}><AiOutlineLeft className="w-6 h-6 text-gray-500 hover:text-black" onClick={() => setActiveGroup({ id: null, name: null })} /></Link>
+              {activeGroup.id!==null && <ChatHeader activeGroup={activeGroup} />}
             </div>
 
             <div className="h-[90%]">
-              <ChatCard />
+              <ChatCard/>
             </div>
           </div>
         </div>

@@ -120,19 +120,19 @@ export default function ChatCard() {
   }
 
 
-  const downloadDoc = (link) =>{
-
-    let link_clean =  link.slice(2, -2);
-    const anchor = document.createElement('a');
-    anchor.href = link_clean;
-    //anchor.target = '_blank'; 
-    anchor.click();
-  }
-
-  //console.log(chats);
-
+  const downloadDoc = (link) => {
+    // Check if link is undefined or null
+    if (link === undefined || link === null) {
+      console.error('Invalid link:', link);
+      return;
+    }
+  
+    let link_clean = link.slice(2, -2);
+    window.open("microsoft-edge:"+ link_clean);
+  };
+  
   return (
-    <div className="h-full flex flex-col bg-slate-200">
+    <div className="h-full w-full flex flex-col bg-slate-200">
 
       <div className="h-[85%] overflow-auto">
         {<Toaster/>}
@@ -155,17 +155,15 @@ export default function ChatCard() {
               },
             }}
             date={message.uploaded_at}
-            onDownload={()=>downloadDoc(message.data_link)}
+            onDownload={()=>downloadDoc(message.data)}
             toBottomHeight={true}
-            replyButton
            // onReplyClick={()=>console.log('hello')}
-            onReplyClick={(e)=>console.log('clg ',e.target)}
             
           />
         ))}
       </div>
 
-      <div className='border border-t-gray-300 bg-gray-100 h-[15%] flex justify-between px-6 gap-5 items-center mb-1 relative'>
+      <div className='w-full lg:w-[70%] border border-t-slate-400 bg-gray-100 h-[15%] flex justify-between px-6 gap-5 items-center mb-1 fixed bottom-0 right-0'>
         <label htmlFor="uploadBanner">
           <TiAttachmentOutline className='w-9 h-9 cursor-pointer' />
           <input
@@ -178,7 +176,7 @@ export default function ChatCard() {
         </label>
         <div className='w-full'>
           <textarea
-            className='w-full rounded-xl px-2 text-xl border-l-4 bg-gray-200 overflow-hidden resize-none'
+            className='w-full h-[10%] rounded-xl px-2 text-xl border-l-4 bg-gray-200 overflow-hidden '
             type='text'
             placeholder='Enter your message.....'
             rows={2}
