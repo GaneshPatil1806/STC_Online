@@ -76,7 +76,10 @@ export default function AddTeacherDomains() {
                 Authorization: `Bearer ${admin.token}`,
             },
         }).then((res)=>{
-            toast.success(res.data.message)
+            toast.success('Domain assigned!');
+            setTimeout(() => {
+                fetchDomains();
+            }, 1000);
             setLoading(false)
         }).catch((e)=>{
             toast.error(e.response.message)

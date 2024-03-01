@@ -108,7 +108,9 @@ export default function AssignGroups() {
             .then(() => {
                 setLoading(false);
                 toast.success('Groups allocated!');
-                fetchGroupsForTeacher();
+                setTimeout(() => {
+                    fetchGroupsForTeacher();
+                }, 1000);
             })
             .catch((e) => {
                 setLoading(false);
