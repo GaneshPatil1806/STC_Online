@@ -118,7 +118,7 @@ function Login ({ type }) {
                 ) : (
                     <div className="flex flex-col w-full lg:w-6/12 relative">
 
-                        <Link to="/admin" className='flex ml-5 h-[15%] absolute'>
+                        <Link to="/admin" className='flex ml-5 h-[15%] absolute right-10'>
                         <button className="underline">ADMIN</button>
                         </Link>
 
