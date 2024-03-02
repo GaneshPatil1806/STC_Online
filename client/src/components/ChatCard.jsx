@@ -69,8 +69,6 @@ export default function ChatCard() {
       });
   };
 
-  //console.log(chats);
-  
   useEffect(() => 
   {
     if(user){

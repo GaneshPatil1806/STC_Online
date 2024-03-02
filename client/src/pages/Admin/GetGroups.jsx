@@ -38,8 +38,6 @@ export default function GetGroups() {
     ))
   }
 
-  //console.log(groups);
-
   return (
 
     loading ? <div className="flex h-screen justify-center items-center"> <Loading/> </div>:
