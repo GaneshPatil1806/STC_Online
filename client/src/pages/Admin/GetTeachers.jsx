@@ -8,7 +8,7 @@ import Loading from "../../common/Loading";
 import { useNavigate } from "react-router-dom";
 
 export default function GetTeachers() {
-  const [teacher, setTeacher] = useState([]);
+  const [teachers, setTeachers] = useState([]);
   const { admin } = useUser();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -22,55 +22,77 @@ export default function GetTeachers() {
       })
         .then((res) => {
           setLoading(false)
-          setTeacher(res.data.data)
+          setTeachers(res.data.data)
         })
         .catch(() => setLoading(false));
     }
-  }, [admin, teacher]);
+  }, [admin, teachers]);
 
   function handleDelete(id) {
-    axios.delete(`${appVars.backendUrl}/api/adminDashboard/deleteTeacher/${id}`, {
-      headers: {
-        Authorization: `Bearer ${admin.token}`
-      }
-    }).then((res) => {
-      toast.success(res.data.message)
-    }).catch((e) => {
-      toast.error(e.response.data.message || 'Error Deleting teacher');
-    })
+    if (window.confirm("Are you sure you want to delete this teacher?")) {
+      axios.delete(`${appVars.backendUrl}/api/adminDashboard/deleteTeacher/${id}`, {
+        headers: {
+          Authorization: `Bearer ${admin.token}`
+        }
+      }).then((res) => {
+        toast.success(res.data.message)
+      }).catch((e) => {
+        toast.error(e.response.data.message || 'Error Deleting Teacher');
+      })
+    }
   }
 
- // console.log(teacher);
+  // console.log(teachers);
 
   return (
-    loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :
-      <div className="flex flex-col items-center">
-
-        <div className="flex justify-between w-full">
-          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
-          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addTeacher')}>Add Teacher</button>
-        </div>
-
-        <p className="font-bold text-xl">Teachers</p>
-
-        <div className="flex flex-wrap items-center justify-center p-5">
-          {
-            teacher &&
-            <>
-              {teacher.map((element) => (
-                <div key={element.name} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg flex flex-col w-[55%] lg:w-[50%] h-[40%] ">
-                  <p>Name: {element.name}</p>
-                  <p>Email: {element.email}</p>
-                  <p>Domain: {element.domains.map((domain,index)=>(<span key={domain.id}>{domain.domain_name}{index !== element.domains.length-1 ? ', ' : '' }</span>))}</p>
-                  <p>Mobile Number: {element.mobile_number}</p>
-                  <p>Teacher Id: {element.reg_number}</p>
-                  <p>Designation: {element.designation}</p>
-                  <div className="flex items-center cursor-pointer" onClick={() => handleDelete(element.id)}><span>Delete</span> <MdDelete className="rounded-md cursor-pointer text-xl"></MdDelete>
-                    <Toaster /></div>
-                </div>
-              ))}</>
-          }
-        </div>
+    loading ? (
+      <div className="flex h-screen justify-center items-center">
+        <Loading />
       </div>
+    ) : (
+      <>
+
+      <div className="flex justify-between w-full">
+        <button className="bg-black text-white m-4 px-2 py-1 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
+        <button className="bg-black text-white m-4 px-2 py-1 rounded-md relative" onClick={() => navigate('/admin/dashboard/addTeacher')}>Add Teacher</button>
+      </div>
+
+        <div className="flex flex-col items-center">
+          <p className="font-bold text-xl mt-3">Teachers</p>
+          {teachers.length > 0 ? (<><table className="w-full border-collapse border mt-2">
+            <thead>
+              <tr className="px-2 py-4">
+                <th className="border px-2 py-2">Name</th>
+                <th className="border px-2 py-2">Email</th>
+                <th className="border px-2 py-2">Domains</th>
+                {/* <th className="border px-2 py-1">Mobile Number</th> */}
+                <th className="border px-2 py-2">Designation</th>
+                <th className="border px-2 py-2">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              {teachers.map((element) => (
+                <tr key={element.id} className="bg-gradient-to-r">
+                  <td className="border px-2 py-1">{element.name}</td>
+                  <td className="border px-2 py-1">{element.email}</td>
+                  <td className="border px-2 py-1">
+                    {element.domains.map((domain, index) => (
+                      <span key={domain.id}>{domain.domain_name}{index !== element.domains.length - 1 ? ', ' : ''}</span>
+                    ))}
+                  </td>
+                  {/* <td className="border px-2 py-1">{element.mobile_number}</td> */}
+                  {/* <td className="border px-2 py-1">{element.reg_number}</td> */}
+                  <td className="border px-2 py-1">{element.designation}</td>
+                  <td className="border py-5 flex justify-center items-center">
+                    <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)} />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table></>) : (<p className="font-bold mt-3">No teachers to show</p>)}
+
+          <Toaster />
+        </div></>
+    )
   );
 }

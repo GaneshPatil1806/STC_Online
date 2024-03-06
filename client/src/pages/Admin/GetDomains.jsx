@@ -54,7 +54,7 @@ export default function GetDomains() {
               <p className="font-bold text-xl">Domains</p>
               {domain.map((element) => (
                 <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex justify-between shadow-lg ring-gray-100 ring-offset-gray-800">
-                  <span>{element.id}</span>
+                  <span className="mx-2">({element.id})</span>
                   <span> {element.domain_name}</span>
                   <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.domain_name)}>Delete</MdDelete>
                   <Toaster />

@@ -27,42 +27,65 @@ export default function GetGroups() {
   }, [admin.token, groups]);
 
   function handleDelete(id) {
-    axios.delete(`${appVars.backendUrl}/api/group/delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${admin.token}`
-      }
-    }).then((res) => {
-      toast.success(res.data.message)
-    }).catch((e) => (
-      toast.error(e.response.data.message || 'Error Deleting Group')
-    ))
+    if (window.confirm("Are you sure you want to delete this group?")) {
+      axios.delete(`${appVars.backendUrl}/api/group/delete/${id}`, {
+        headers: {
+          Authorization: `Bearer ${admin.token}`
+        }
+      }).then((res) => {
+        toast.success(res.data.message)
+      }).catch((e) => (
+        toast.error(e.response.data.message || 'Error Deleting Group')
+      ))
+    }
   }
 
   return (
 
-    loading ? <div className="flex h-screen justify-center items-center"> <Loading/> </div>:
+    loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :
       <>
         <div className="flex justify-between absolute w-full">
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addGroup')}>Add Group</button>
         </div>
 
-        <div className="flex flex-col items-center p-5">
-          {
-            groups &&
+        <div className="flex flex-col items-center">
+        <p className="font-bold text-xl mt-9">Groups</p>
+          {groups.length > 0 ? (
             <>
-              <p className="font-bold text-xl">Groups</p>
-              {groups.map((element) => (
-                <div key={element.id} className="bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg w-[60%] sm:w-[20%] h-[30%] flex flex-col">
-                  <p>Group Name: {element.group_name}</p>
-                  <p>GroupId: {element.id}</p>
-                  <p>TeacherId: {element.fk_teacher}</p>
-                  <div className="flex items-center"><p>Delete</p><MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)}></MdDelete></div>
-                  <Toaster />
-                </div>
-              ))}</>
-          }
+              <table className="w-full border-collapse border mt-2">
+                <thead>
+                  <tr>
+                    <th className="border px-4 py-2">Group Name</th>
+                    <th className="border px-4 py-2">Group ID</th>
+                    <th className="border px-4 py-2">Teacher ID</th>
+                    <th className="border px-4 py-2">Delete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {groups.map((element) => (
+                    <tr key={element.id} className="bg-gradient-to-r">
+                      <td className="border px-4 py-2">{element.group_name.toUpperCase()}</td>
+                      <td className="border px-4 py-2">{element.id}</td>
+                      <td className="border px-4 py-2">{element.fk_teacher}</td>
+                      <td className="border px-4 py-2 flex items-center">
+                        <p>Delete</p>
+                        <MdDelete
+                          className="rounded-md cursor-pointer text-xl ml-2"
+                          onClick={() => handleDelete(element.id)}
+                        />
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+              <Toaster />
+            </>
+          ) : (
+            <p className="font-bold mt-3">No groups are created yet.</p>
+          )}
         </div>
+
       </>
   );
 }

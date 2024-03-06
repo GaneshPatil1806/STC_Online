@@ -28,18 +28,19 @@ function Login ({ type }) {
     
         axios.post(`${appVars.backendUrl}/api/${type}/login`, dummyUser)
           .then((res) => {
+            toast.success(res.data.message);
+            const data = JSON.stringify({ ...res.data.data, type: type });
+            storeInLocal('user', data);
+            setUser(JSON.parse(data));
+            
             setTimeout(() => {
-              toast.success(res.data.message);
               setLoading(false);
-              const data = JSON.stringify({ ...res.data.data, type: type });
-              storeInLocal('user', data);
-              setUser(JSON.parse(data));
               navigate(`chat`);
             }, 1000);
           })
           .catch((e) => {
             setLoading(false);
-            toast.error(e.response.data.message);
+            toast.error(e.response.data.message || 'Login Failed!');
           });
     }
           
@@ -59,7 +60,6 @@ function Login ({ type }) {
     }, [user, navigate]);
 
     return (
-        user && user.token ? navigate(`/${user.type}/chat`) : 
         <UserContext.Provider value={user}>
             <div className="flex h-screen bg-white">
                 <div className="lg:w-6/12 md:relative">
@@ -73,7 +73,7 @@ function Login ({ type }) {
                         <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
-                                    email:
+                                    EMAIL
                                 </label>
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -88,7 +88,7 @@ function Login ({ type }) {
 
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
-                                    Password:
+                                    PASSWORD
                                 </label>
                                 <input
                                     className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"

@@ -121,6 +121,7 @@ export default function CreateGroup() {
 
       <div className="flex flex-col justify-center items-center">
         <Toaster />
+        <p className="font-bold">You are not needed to add your own Roll Number</p>
         <form
           ref={formRef}
           onSubmit={submitHandler}

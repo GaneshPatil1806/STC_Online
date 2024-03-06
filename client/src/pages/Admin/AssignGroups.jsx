@@ -3,15 +3,15 @@ import axios from "axios";
 import { appVars } from "../../conf/conf";
 import Loading from "../../common/Loading";
 import useUser from "../../context/userContext";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AssignGroups() {
     const [domains, setDomains] = useState([]);
     const [teachersUnderDomain, setTeachersUnderDomain] = useState([]);
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selectedDomain, setSelectedDomain] = useState(null);
-    const [selectedTeacher, setSelectedTeacher] = useState(null);
+    const [selectedDomain, setSelectedDomain] = useState('Select Domain');
+    const [selectedTeacher, setSelectedTeacher] = useState('Select Teacher');
     const [selectedGroup, setSelectedGroup] = useState(0);
     const { admin } = useUser();
     const [selectedGrpData, setSelectedGrpData] = useState(null);
@@ -126,6 +126,7 @@ export default function AssignGroups() {
                 </div>
             ) : (
                 <div className="flex items-center gap-4 bg-slate-200 p-4 w-full">
+                    <Toaster/>
                     <select
                         className="px-2 py-2 bg-gray-100 cursor-pointer outline-none"
                         value={selectedDomain}
@@ -161,32 +162,44 @@ export default function AssignGroups() {
 
             <p className="px-2 py-2 bg-gray-200 cursor-pointer outline-none mb-2 font-bold w-full">Select student groups:</p>
             {selectedTeacher && groups.length > 0 && (
-                <div className="flex flex-wrap">
-                    {groups.map((group) => (
-                        <div key={group.id} >
-                            <div className="flex flex-col bg-gradient-to-r from-slate-400 to-slate-300 p-4 m-4 rounded-lg">
-                                <input
-                                    type="checkbox"
-                                    id={group.id}
-                                    checked={selectedGroup === group.id}
-                                    onChange={() => handleCheckboxChange(group.id)}
-                                    value="name"
-                                />
-                                <label htmlFor={group.id}>Group Name: {group.group_name}</label>
-                                {selectedGrpData && (
-                                    <ol className="pl-4">
-                                        {selectedGrpData.map((student) => (
-                                            <li type='1' key={student.id}>{student.first_name}</li>
-                                        ))}
-                                    </ol>
-                                )}
-                                <button onClick={() => showDetails(group.id)} className="bg-black rounded-md text-white p-2 m-2">{selectedGrpData ? 'Hide Details' : 'Show Details'}</button>
-                            </div>
-                        </div>
-                    ))}
+    <table className="w-full border-collapse border">
+        <thead>
+            <tr>
+                <th className="border border-black px-4 py-1">Select</th>
+                <th className="border border-black px-4 py-1">Group Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            {groups.map((group) => (
+                <tr key={group.id}>
+                    <td className="border border-black px-4 py-1">
+                        <input
+                            type="checkbox"
+                            id={group.id}
+                            checked={selectedGroup === group.id}
+                            onChange={() => handleCheckboxChange(group.id)}
+                            value="name"
+                        />
+                    </td>
+                    <td className="border border-black px-4 py-1">
+                        <label htmlFor={group.id}>{group.group_name.toUpperCase()}</label>
+                        {selectedGrpData && (
+                            <ul className="">
+                                {selectedGrpData.map((student) => (
+                                    <li key={student.id}>{student.first_name}</li>
+                                ))}
+                            </ul>
+                        )}
+                        <button onClick={() => showDetails(group.id)} className="bg-black rounded-md text-white p-2 m-2">
+                            {selectedGrpData ? 'Hide Details' : 'Show Details'}
+                        </button>
+                    </td>
+                </tr>
+            ))}
+        </tbody>
+    </table>
+)}
 
-                </div>
-            )}
         </div>
     );
 }

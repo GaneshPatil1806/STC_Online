@@ -108,7 +108,7 @@ function Profile() {
         <p>{user && user[type].email}</p> */}
 
         { user && <div className='flex flex-col p-1'>
-          <p>Name: {user.type === 'student' ? user[type].first_name + " " + user[type].last_name  : user[type].name}</p>
+          <p>Name: {user.type === 'student' ? user[type].first_name : user[type].name}</p>
           <p>Email:  {user[type].email}</p>
           <p>Mobile:  {user[type].mobile_number}</p>
         </div>}
