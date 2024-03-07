@@ -4,7 +4,7 @@ import { appVars } from "../../conf/conf";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
 import Loading from "../../common/Loading";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 
 export default function AddStudent() {
   const navigate = useNavigate();

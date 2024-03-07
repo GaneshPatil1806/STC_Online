@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { appVars } from "../../conf/conf";
 import Loading from "../../common/Loading";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function AssignGroups() {

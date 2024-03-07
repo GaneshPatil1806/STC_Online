@@ -2,7 +2,7 @@
 import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { appVars } from "../conf/conf";
-import useUser from "../context/userContext";
+import useUser from "../context/UserContext";
 import { json, useParams } from "react-router-dom";
 import "react-chat-elements/dist/main.css";
 import { TiAttachmentOutline } from 'react-icons/ti'

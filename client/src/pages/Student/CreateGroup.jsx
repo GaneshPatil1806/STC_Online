@@ -2,7 +2,7 @@ import axios from "axios";
 import { useState, useEffect, useRef } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import { appVars } from "../../conf/conf";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 import { useNavigate } from "react-router-dom";
 import { removeFromLocal } from "../../assets/local";
 import Loading from "../../common/Loading";

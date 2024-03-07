@@ -1,7 +1,7 @@
 import axios from "axios";
 import { appVars } from "../../conf/conf";
 import { useState } from "react";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 import toast, { Toaster } from 'react-hot-toast';
 import TeacherInput from "./TeacherInput";
 import { useNavigate } from "react-router-dom";

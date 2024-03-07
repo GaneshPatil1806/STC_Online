@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import useUser from "../../context/userContext"
+import useUser from "../../context/UserContext"
 import axios from "axios";
 import { appVars } from "../../conf/conf";
 import toast,{Toaster} from "react-hot-toast";
