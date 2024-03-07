@@ -57,7 +57,6 @@ export default function Addname() {
     'Professor',
     'Asscoiate Professor',
     'Assistant Professor',
-    'Adjunct Faculty',
   ]
 
   return (
