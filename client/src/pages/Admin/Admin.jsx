@@ -3,11 +3,8 @@ import { useState, useEffect } from "react";
 import { appVars } from '../../conf/conf'
 import axios from "axios";
 import { storeInLocal } from '../../assets/local'
-<<<<<<< HEAD
 import useUser from '../../context/UserContext/'
-=======
-import useUser from '../../context/UserContext'
->>>>>>> 5701de544544a94141243b6e57b79f96a18dab00
+
 import { UserProvider } from "../../context/UserContext";
 import Loading from "../../common/Loading";
 import toast,{ Toaster } from "react-hot-toast";
