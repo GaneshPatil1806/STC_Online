@@ -1,5 +1,5 @@
 export const envVar = {
-    backendUrl:  'http://localhost:8000'
+    backendUrl:  import.meta.env.VITE_BACKEND_URL
 };
 
 export const appVars = envVar;
