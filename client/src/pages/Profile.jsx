@@ -4,7 +4,7 @@ import profileLogo from '../assets/images/profile.jpg';
 import { IoIosCloseCircle } from 'react-icons/io';
 import { removeFromLocal } from '../assets/local'
 import { useNavigate } from 'react-router-dom';
-import useUser from '../context/userContext';
+import useUser from '../context/UserContext';
 import axios from 'axios';
 import toast, { Toaster } from 'react-hot-toast';
 import { appVars } from '../conf/conf';

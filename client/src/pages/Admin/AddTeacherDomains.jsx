@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 import axios from "axios";
 import { appVars } from "../../conf/conf";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 import { useEffect, useState } from "react";
 import  { Toaster,toast } from "react-hot-toast";
 import Loading from '../../common/Loading'

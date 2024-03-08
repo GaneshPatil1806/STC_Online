@@ -6,7 +6,7 @@ import ChatCard from "../components/ChatCard";
 import Profile from "./Profile";
 import { Link, useNavigate } from "react-router-dom";
 import ChatHeader from "../components/ChatHeader";
-import useUser from "../context/userContext";
+import useUser from "../context/UserContext";
 import Loading from "../common/Loading";
 import axios from "axios";
 import { appVars } from "../conf/conf";

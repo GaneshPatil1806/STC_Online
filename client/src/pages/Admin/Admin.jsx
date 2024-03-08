@@ -4,7 +4,7 @@ import { appVars } from '../../conf/conf'
 import axios from "axios";
 import { storeInLocal } from '../../assets/local'
 import useUser from '../../context/UserContext/'
-import { UserProvider } from "../../context/userContext";
+import { UserProvider } from "../../context/UserContext";
 import Loading from "../../common/Loading";
 import toast,{ Toaster } from "react-hot-toast";
 

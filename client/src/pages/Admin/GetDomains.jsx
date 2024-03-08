@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import useUser from "../../context/userContext";
+import useUser from "../../context/UserContext";
 import { appVars } from "../../conf/conf";
 import toast, { Toaster } from 'react-hot-toast';
 import { MdDelete } from "react-icons/md";
@@ -12,6 +12,8 @@ export default function GetDomains() {
   const { admin } = useUser();
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+
+  // pending - show in tabulatr format
 
   useEffect(() => {
     axios.get(`${appVars.backendUrl}/api/domain`, {
