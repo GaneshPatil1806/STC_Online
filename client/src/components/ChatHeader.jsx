@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
-import useUser from "../context/userContext";
+import useUser from "../context/UserContext";
 import axios from "axios";
 import { appVars } from "../conf/conf";
 
