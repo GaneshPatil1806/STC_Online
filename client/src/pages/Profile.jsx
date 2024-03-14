@@ -1,7 +1,8 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import { useState } from 'react';
 import profileLogo from '../assets/images/profile.jpg';
-import { IoIosCloseCircle } from 'react-icons/io';
+// import { IoIosCloseCircle } from 'react-icons/io';
 import { removeFromLocal } from '../assets/local'
 import { useNavigate } from 'react-router-dom';
 import useUser from '../context/UserContext';
@@ -23,12 +24,12 @@ function Profile() {
 
   function passwordHandler(e) {
     e.preventDefault();
-    // console.log('hi');
-    //   axios.get(`${appVars.backendUrl}/api/teacherDashboard/teacherDomains`,{
-    //     headers: {
-    //       Authorization: `Bearer ${user?.token}`,
-    //     },
-    //   }).then((res)=>{console.log('hi'),console.log(res.data)}).catch((e)=>(console.log(e)))
+    console.log('hi');
+      axios.get(`${appVars.backendUrl}/api/teacherDashboard/teacherDomains`,{
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
+      }).then((res)=>{console.log('hi'),console.log(res.data)}).catch((e)=>(console.log(e)))
   }
 
   function handleLogOut() {
@@ -60,7 +61,7 @@ function Profile() {
   }
 
   return (
-    <div className="left-[5%] w-full lg:w-[25%] bg-slate-200 flex items-center flex-col h-screen border border-r-slate-400 border-l-slate-400">
+    <div className="left-[5%] w-full lg:w-[25%] bg-[#E3FDFD] flex items-center flex-col h-screen border border-r-slate-400 border-l-slate-400">
 
       <Toaster/>
       {loading && <Loading/>}
@@ -112,10 +113,10 @@ function Profile() {
           <p>Email:  {user[type].email}</p>
           <p>Mobile:  {user[type].mobile_number}</p>
         </div>}
-        <button className='bg-black text-white p-1 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>
+        <button className='bg-[#71C9CE] text-black p-2 m-3 rounded-md' onClick={handleLogOut}>LogOut</button>
       </>}
 
-      <button onClick={() => setDisplayEdit((prev) => (!prev))}>{displayEdit ? <div className='flex flex-col'><IoIosCloseCircle className="text-3xl" /> <p>Close</p></div> : <p className='text-white bg-black rounded p-2'>Edit Password</p>}</button>
+      {/* <button onClick={() => setDisplayEdit((prev) => (!prev))}>{displayEdit ? <div className='flex flex-col'><IoIosCloseCircle className="text-3xl" /> <p>Close</p></div> : <p className='text-white bg-black rounded p-2'>Edit Password</p>}</button> */}
 
     </div>
   );

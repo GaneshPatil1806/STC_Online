@@ -22,6 +22,8 @@ import Login from './components/Login'
 import AssignGroups from './pages/Admin/AssignGroups';
 import AddTeacherDomains from './pages/Admin/AddTeacherDomains';
 import CreateGroup from './pages/Student/CreateGroup';
+import AddNotice from './pages/Admin/AddNotice';
+import FetchFinal from './pages/Admin/FetchFinal';
 // import EventScheduler from './components/MeetSchedule/EventScheduler';
 
 function App() {
@@ -67,6 +69,9 @@ function App() {
 
           <Route path="/admin/dashboard/assignGroups" element={<AssignGroups/>}></Route>
           <Route path="/admin/dashboard/assignTeacherDomains" element={<AddTeacherDomains/>}></Route>
+
+          <Route path="/admin/dashboard/addNotice" element={<AddNotice/>}></Route>
+          <Route path="/admin/dashboard/fetchFinal" element={<FetchFinal/>}></Route>
 
           {/* <Route path="meet" element={<EventScheduler/>}></Route> */}
           

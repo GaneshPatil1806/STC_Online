@@ -26,7 +26,7 @@ function Admin() {
 
     axios.post(`${appVars.backendUrl}/api/admin/login`, dummyUser)
       .then((res) => {
-        toast.success(res.data.message);
+        //toast.success(res.data.message);
         setLoading(false);
         const adminData = res.data.data;
         let data = JSON.stringify({ ...adminData });

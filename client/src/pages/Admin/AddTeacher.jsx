@@ -59,6 +59,27 @@ export default function Addname() {
     'Assistant Professor',
   ]
 
+  const handleFileUpload = (e) => {
+    let file = e.target.files[0];
+    const formData = {}
+    formData["file"] = file;
+    let url = `${appVars.backendUrl}/api/csv/teachers/csv`
+    console.log(formData)
+    axios.post(url, formData, {
+      headers: {
+        Authorization: `Bearer ${admin?.token}`,
+        "Content-Type ": "multipart/form-data"
+      }
+    })
+      .then((res) => {
+        console.log(res);
+        toast.success('Upload success!')
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || 'Upload failed!')
+      })
+  }
+
   return (
 
     <>
@@ -68,7 +89,17 @@ export default function Addname() {
       </div>
 
       <div className="flex flex-col justify-center items-center h-screen">
-        <p className="text-xl font-bold mb-4">Add Teacher</p>
+      <h1 className='md:text-3xl text-2xl font-bold md:my-5 my-3'>Add New Teacher/ <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
+          Upload CSV
+          <input
+            id="uploadBanner"
+            type="file"
+            onChange={handleFileUpload}
+            hidden
+          />
+        </label>
+        </span>
+        </h1>
         <form className="flex flex-col justify-center items-center bg-slate-300 shadow-md rounded px-3 pt-6 pb-1 mb-1 w-[40%]" onSubmit={submitHandler}>
 
           <div className="flex flex-wrap"><TeacherInput

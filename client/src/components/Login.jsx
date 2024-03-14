@@ -28,7 +28,7 @@ function Login ({ type }) {
     
         axios.post(`${appVars.backendUrl}/api/${type}/login`, dummyUser)
           .then((res) => {
-            toast.success(res.data.message);
+            //toast.success(res.data.message);
             const data = JSON.stringify({ ...res.data.data, type: type });
             storeInLocal('user', data);
             setUser(JSON.parse(data));

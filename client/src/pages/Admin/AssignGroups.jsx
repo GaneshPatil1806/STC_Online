@@ -15,7 +15,9 @@ export default function AssignGroups() {
     const [selectedGroup, setSelectedGroup] = useState(0);
     const { admin } = useUser();
     const [selectedGrpData, setSelectedGrpData] = useState(null);
-
+    const [grpDetails,setGrpDetails] = useState(null);
+    
+    // to be done
     useEffect(() => {
         setLoading(true);
         axios
@@ -70,10 +72,28 @@ export default function AssignGroups() {
     const handleTeacherChange = (e) => {
         setSelectedTeacher(e.target.value);
         fetchGroupsForTeacher();
+        handleTeacherGrpDetails()
     };
 
     const handleCheckboxChange = (group) => {
         setSelectedGroup((prev) => prev === 0 ? group : 0);
+    };
+
+    const handleTeacherGrpDetails = () => {
+        axios
+            .post(`${appVars.backendUrl}/api/adminAllocation/getGroupCountDesignation/${selectedTeacher}`,{
+                headers: {
+                    Authorization: `Bearer ${admin.token}`,
+                },
+            })
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((e) => {
+                setLoading(false);
+                console.log(e);
+                toast.error(e.response.message);
+            });
     };
 
     function showDetails(id) {
@@ -155,6 +175,8 @@ export default function AssignGroups() {
                             ))}
                         </select>
                     )}
+
+                
 
                     <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
                 </div>

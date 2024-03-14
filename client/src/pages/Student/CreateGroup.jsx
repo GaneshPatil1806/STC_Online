@@ -9,28 +9,30 @@ import Loading from "../../common/Loading";
 
 export default function CreateGroup() {
   const [domains, setDomains] = useState([]);
-  const [loading, setLoading] = useState();
+  const [loading, setLoading] = useState(false);
   const { user, setUser } = useUser();
-  
+  const [grpNumber, setGrpNumber] = useState('2');
+
   const [formData, setFormData] = useState({
     domain_id: "",
-    roll_number1: "",
     roll_number2: "",
+    roll_number3: "",
   });
+
   const formRef = useRef(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     axios
-      .get(`${appVars.backendUrl}/api/domain/student`,{
-        headers:{
-            Authorization: `Bearer ${user?.token}`
-        }
+      .get(`${appVars.backendUrl}/api/domain/student`, {
+        headers: {
+          Authorization: `Bearer ${user?.token}`,
+        },
       })
       .then((res) => {
         setDomains(res.data.data);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => console.error(e));
   }, [user]);
 
   function handleChange(e) {
@@ -49,12 +51,12 @@ export default function CreateGroup() {
       remaining_roll_numbers: [],
     };
 
-    if(formData.roll_number1 !== ''){
-        requestBody.remaining_roll_numbers.push(parseInt(formData.roll_number1));
+    if (formData.roll_number2 !== '') {
+      requestBody.remaining_roll_numbers.push(parseInt(formData.roll_number2));
     }
 
-    if(formData.roll_number2 !== ''){
-        requestBody.remaining_roll_numbers.push(parseInt(formData.roll_number2));
+    if (formData.roll_number3 !== '') {
+      requestBody.remaining_roll_numbers.push(parseInt(formData.roll_number3));
     }
 
     axios
@@ -64,21 +66,19 @@ export default function CreateGroup() {
         },
       })
       .then(() => {
-        //console.log(res.data);
         toast.success("Group Created!");
-        setTimeout(()=>{
-            navigate('/student/chat')
-        },1000)
+        setTimeout(() => {
+          navigate('/student/chat');
+        }, 1000);
       })
       .catch((e) => {
-        toast.error(e.response.message || "Group not created!");
-        console.log(e);
-      }).finally(()=>{
-        // setTimeout(()=>{
-        //     navigate('/student/chat')
-        // },1000)
+        toast.error(e.response?.data?.message || "Group not created!");
+        console.error(e);
       })
-   }
+      .finally(() => {
+        // Add any cleanup or additional logic here
+      });
+  }
 
   function handleLogOut() {
     setLoading(true);
@@ -121,31 +121,47 @@ export default function CreateGroup() {
 
       <div className="flex flex-col justify-center items-center">
         <Toaster />
-        <p className="font-bold">You are not needed to add your own Roll Number</p>
         <form
           ref={formRef}
           onSubmit={submitHandler}
           className="bg-slate-200 shadow-md rounded p-4 m-2 flex flex-col"
         >
           <label
+            htmlFor="grpnumber"
+            className="block text-gray-700 text-sm font-bold mb-2"
+          >
+            Select the number of students
+          </label>
+          <select
+            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            value={grpNumber || '2'}
+            name="grpnumber"
+            onChange={(e) => setGrpNumber(e.target.value)}
+          >
+            <option value="2">2</option>
+            <option value="3">3</option>
+          </select>
+
+          <label
             htmlFor="roll_number1"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Roll Number 1
+            Student 1
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 cursor-not-allowed"
             type="text"
             id="roll_number1"
             name="roll_number1"
-            onChange={handleChange}
+            value={user.type === 'student' && user['student'].roll_number}
+            disabled
           />
 
           <label
             htmlFor="roll_number2"
             className="block text-gray-700 text-sm font-bold mb-2"
           >
-            Roll Number 2
+            Student 2
           </label>
           <input
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
@@ -154,6 +170,22 @@ export default function CreateGroup() {
             name="roll_number2"
             onChange={handleChange}
           />
+
+          {grpNumber === '3' && (
+            <><label
+              htmlFor="roll_number3"
+              className="block text-gray-700 text-sm font-bold mb-2"
+            >
+              Student 3
+            </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+                type="text"
+                id="roll_number3"
+                name="roll_number3"
+                onChange={handleChange}
+              /></>
+          )}
 
           <label
             htmlFor="domain_id"

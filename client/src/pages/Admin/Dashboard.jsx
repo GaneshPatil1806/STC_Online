@@ -85,6 +85,14 @@ function Dashboard() {
                     <div className="p-3 font-bold text-xl">Assign Domains(Teacher)</div>
                 </Link>
 
+                <Link to='addNotice' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
+                    <div className="p-3 font-bold text-xl">Add Notice</div>
+                </Link>
+
+                <Link to='fetchFinal' className="h-[60%] w-[25%] bg-gradient-to-r from-slate-400 to-slate-300 rounded-lg m-5 flex justify-center items-center shadow-md border-b-2 border-white">
+                    <div className="p-3 font-bold text-xl">Fetch Final Files</div>
+                </Link>
+
             </div>
 
             {loading && <Loading/>}

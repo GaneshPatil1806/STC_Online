@@ -9,6 +9,7 @@ import useUser from "../../context/UserContext";
 export default function AddStudent() {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { admin } = useUser();
 
   const [formData, setFormData] = useState({
     first_name: "",
@@ -26,8 +27,6 @@ export default function AddStudent() {
       [e.target.name]: e.target.value
     });
   }
-
-  const { admin } = useUser();
 
   function submitHandler(e) {
     e.preventDefault();
@@ -54,6 +53,27 @@ export default function AddStudent() {
       });
   }
 
+  const handleFileUpload = (e) => {
+    let file = e.target.files[0];
+    const formData = {}
+    formData["file"] = file;
+    let url = `${appVars.backendUrl}/api/csv/students/csv`
+    console.log(formData)
+    axios.post(url, formData, {
+      headers: {
+        Authorization: `Bearer ${admin?.token}`,
+        "Content-Type ": "multipart/form-data"
+      }
+    })
+      .then((res) => {
+        console.log(res);
+
+      })
+      .catch((err) => {
+        toast.error(err.response.data.message || 'Upload failed!')
+      })
+  }
+
   return (
     <>
       {admin && admin.token && (
@@ -68,7 +88,17 @@ export default function AddStudent() {
       )}
 
       <div className="flex justify-center items-center h-screen flex-col">
-        <p className="text-xl font-bold mb-4">Add New Student</p>
+        <h1 className='md:text-3xl text-2xl font-bold md:my-5 my-3'>Add New Student / <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
+          Upload CSV
+          <input
+            id="uploadBanner"
+            type="file"
+            onChange={handleFileUpload}
+            hidden
+          />
+        </label>
+        </span>
+        </h1>
         <form onSubmit={submitHandler} className="flex flex-col items-center bg-slate-300 shadow-md rounded p-4 mx-auto border-b-2 border-white w-[30%]">
           <div className="flex flex-wrap -mx-2">
             {Object.entries(formData).map(([key, value]) => (

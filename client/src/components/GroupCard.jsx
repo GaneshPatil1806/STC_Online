@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 function GroupCard({ group, onGroupClick }) {
   const { id } = useParams();
   const { group_name,id:id1 } = group;
-  let classNames = id != id1 ? 'md:bg-slate-50 bg-slate-200' : 'bg-slate-200';
+  let classNames = id != id1 ? `` : 'bg-[#A6E3E9]';
 
   return (
     <li
