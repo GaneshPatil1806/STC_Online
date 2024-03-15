@@ -151,7 +151,8 @@ export default function ChatCard() {
         {chats && chats.map((chat) => (
           <><div className={`bg-[#f7f8fd] shadow-lg shadow-b shadow-l border-b-2   border-slate-400 w-fit h-fit text-gray-900 ${chat.teacher_uploaded && user?.type === "teacher" || chat.teacher_uploaded === false && user?.type === "student" ? "ml-auto border-l-2  " : " mr-auto border-r-2"} ${chat.is_file ? " px-2 " : ""} rounded-xl m-2 max-w-[60%] whitespace-pre-line `}>
             <div className="flex justify-between"><h1 className='mr-auto text-sm font-semibold  mb-1 pt-2 pl-3 pr-5 '>{chat.uploader_name}</h1>
-            {/* <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(chat.id)} />*/}</div> 
+            {(chat.teacher_uploaded && user?.type === "teacher") || (chat.teacher_uploaded === false && user?.type === "student") ? <MdDelete className="rounded-md cursor-pointer text-xl m-1" onClick={() => handleDelete(chat.id)} /> : ""}
+            </div> 
             {
               chat.is_file ?
                 <div className='bg-[#f7f8fd] rounded flex py-1 px-1 cursor-pointer items-start' onClick={() => { downloadDoc(chat.data) }}>

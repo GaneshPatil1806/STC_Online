@@ -65,9 +65,9 @@ export default function AddStudent() {
         "Content-Type ": "multipart/form-data"
       }
     })
-      .then((res) => {
-        console.log(res);
-
+      .then(() => {
+        //console.log(res);
+        toast.success('Upload success!')
       })
       .catch((err) => {
         toast.error(err.response.data.message || 'Upload failed!')
@@ -88,7 +88,7 @@ export default function AddStudent() {
       )}
 
       <div className="flex justify-center items-center h-screen flex-col bg-[#71C9CE]">
-        <h1 className='md:text-3xl text-2xl font-bold md:my-5 my-3'>Add New Student / <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
+        <h1 className='text-xl font-bold md:my-5 my-3'>Add New Student / <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
           Upload CSV
           <input
             id="uploadBanner"

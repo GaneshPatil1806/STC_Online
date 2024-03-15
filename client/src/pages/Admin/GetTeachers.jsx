@@ -15,7 +15,7 @@ export default function GetTeachers() {
 
   useEffect(() => {
     if (admin) {
-      axios.get(`${appVars.backendUrl}/api/adminDashboard/getDomainAndTeacher`, {
+      axios.get(`${appVars.backendUrl}/api/adminDashboard/teachers`, {
         headers: {
           Authorization: `Bearer ${admin.token}`,
         },
@@ -57,29 +57,31 @@ export default function GetTeachers() {
           {teachers.length > 0 ? (<><table className="w-full mt-2 border border-black">
             <thead>
               <tr className="px-2 py-4 bg-[#A6E3E9]">
-                <th className="border border-black px-2 py-2">Name</th>
-                <th className="border border-black px-2 py-2">Email</th>
+              <th className="border border-black px-2 py-1">Sr.</th>
+                <th className="border border-black px-2 py-1">Designation</th>
+                <th className="border border-black px-2 py-1">Name</th>
+                <th className="border border-black px-2 py-1">Email</th>
                 <th className="border border-black px-2 py-1">Password</th>
-                <th className="border border-black px-2 py-2">Domains</th>
-                <th className="border border-black px-2 py-2">Designation</th>
-                <th className="border border-black px-2 py-2">Delete</th>
+                {/* <th className="border border-black px-2 py-1">Domains</th> */}
+                <th className="border border-black px-2 py-1">Delete</th>
               </tr>
             </thead>
             <tbody>
               {teachers.map((element,index) => (
                 <tr key={element.id} className={ index%2==0 ? `bg-[#CBF1F5]`: `bg-[#A6E3E9]`}>
+                  <td className="border border-black px-2 py-1">{index+1}</td>
+                  <td className="border border-black px-2 py-1">{element.designation}</td>
                   <td className="border border-black px-2 py-1">{element.name}</td>
                   <td className="border border-black px-2 py-1">{element.email}</td>
                   <td className="border border-black px-2 py-1">{element.password}</td>
-                  <td className="border border-black px-2 py-1">
+                  {/* <td className="border border-black px-2 py-1">
                     {element.domains.map((domain, index) => (
                       <span key={domain.id}>{domain.domain_name}{index !== element.domains.length - 1 ? ', ' : ''}</span>
                     ))}
-                  </td>
+                  </td> */}
                   {/* <td className="border border-black px-2 py-1">{element.mobile_number}</td> */}
                   {/* <td className="border border-black px-2 py-1">{element.reg_number}</td> */}
-                  <td className="border border-black px-2 py-1">{element.designation}</td>
-                  <td className="border border-b-black py-5 flex justify-center items-center">
+                  <td className="px-4 py-1 border border-black">
                     <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.id)} />
                   </td>
                 </tr>

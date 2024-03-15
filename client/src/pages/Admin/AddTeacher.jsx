@@ -156,7 +156,7 @@ export default function Addname() {
               type="password"
             /></div>
 
-          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 m-2 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
           <Toaster />

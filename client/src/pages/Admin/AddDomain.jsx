@@ -58,7 +58,8 @@ export default function AddDomain() {
             type="text"
             placeholder="domain"
             value={domain}
-            onChange={(e) => setDomain(e.target.value)} // Controlled component
+            onChange={(e) => setDomain(e.target.value)} 
+            required
           />
 
           <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">

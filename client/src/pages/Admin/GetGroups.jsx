@@ -54,7 +54,7 @@ export default function GetGroups() {
         <p className="font-bold text-xl mt-9">Groups</p>
           {groups.length > 0 ? (
             <>
-              <table className="w-full mt-2 border border-black">
+              <table className="w-full mt-2">
                 <thead>
                   <tr className="bg-[#A6E3E9]">
                     <th className="border border-black px-4 py-2">Group Name</th>
@@ -69,8 +69,7 @@ export default function GetGroups() {
                       <td className="border border-black px-4 py-2">{element.group_name.toUpperCase()}</td>
                       <td className="border border-black px-4 py-2">{element.id}</td>
                       <td className="border border-black px-4 py-2">{element.fk_teacher}</td>
-                      <td className="px-4 py-2 flex items-center">
-                        <p>Delete</p>
+                      <td className="px-4 py-1 border border-black">
                         <MdDelete
                           className="rounded-md cursor-pointer text-xl ml-2"
                           onClick={() => handleDelete(element.id)}

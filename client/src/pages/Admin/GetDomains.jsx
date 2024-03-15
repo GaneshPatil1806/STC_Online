@@ -52,7 +52,7 @@ export default function GetDomains() {
           <table className="table-auto">
             <thead className="bg-[#A6E3E9]">
               <tr className="border border-black">
-                <th className="px-4 py-2 border border-black">ID</th>
+                <th className="px-4 py-2 border border-black">Sr.</th>
                 <th className="px-4 py-2 border border-black">Domain Name</th>
                 <th className="px-4 py-2 border border-black">Actions</th>
               </tr>
@@ -60,7 +60,7 @@ export default function GetDomains() {
             <tbody>
               {domains.map((element,index) => (
                 <tr key={element.id} className={ index%2==0 ? `bg-[#CBF1F5]`: `bg-[#A6E3E9]`}>
-                  <td className="border border-black px-4 py-2">{element.id}</td>
+                  <td className="border border-black px-4 py-2">{index+1}</td>
                   <td className="border border-black px-4 py-2">{element.domain_name}</td>
                   <td className="border border-black px-4 py-2">
                     <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(element.domain_name)} />

@@ -13,6 +13,7 @@ const TeacherInput = ({ label, placeholder, value, onChange, type }) => (
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      required
     />
   </div>
 );

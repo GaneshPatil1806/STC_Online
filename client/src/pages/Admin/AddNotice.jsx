@@ -91,7 +91,7 @@ const AddNotice = () => {
 
             <div className='bg-[#71C9CE] h-screen flex'>
                 <div className='w-[60%] p-10 border-r-2 border-black'>
-                    <h1 className='text-center text-2xl my-7 font-semibold'>Create A Notice </h1>
+                    <h1 className='text-center text-2xl my-7 font-semibold'>Create Notice </h1>
                     <input
                         className='bg-[#E3FDFD] block rounded-full w-full py-2 px-4 text-md border-x shadow-md'
                         type='text'
@@ -113,7 +113,7 @@ const AddNotice = () => {
                 </div>
                 <div className='w-[40%] flex justify-center'>
                     <h1 className='h-[20%] fixed text-center text-2xl my-7 font-semibold ml-4'>Previous Notices</h1>
-                    <div className='h-[80%] mt-20 top-0 left-0 right-0' style={{ overflowWrap: 'break-word',overflow:'auto' }}>
+                    <div className='h-[80%] mt-20 top-0 left-0 right-0 whitespace-pre-line' style={{ overflowWrap: 'break-word',overflow:'auto' }}>
                         {notice.length > 0 ?
                             notice.map((msg) => (
                                 <div key={msg.id} className='m-2 p-2 bg-[#E3FDFD] rounded-lg'>
