@@ -10,14 +10,12 @@ export default function AssignGroups() {
     const [teachersUnderDomain, setTeachersUnderDomain] = useState([]);
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [selectedDomain, setSelectedDomain] = useState('Select Domain');
-    const [selectedTeacher, setSelectedTeacher] = useState('Select Teacher');
-    const [selectedGroup, setSelectedGroup] = useState(0);
+    const [selectedDomain, setSelectedDomain] = useState('');
+    const [selectedTeacher, setSelectedTeacher] = useState('');
+    const [selectedGroup, setSelectedGroup] = useState('');
     const { admin } = useUser();
     const [selectedGrpData, setSelectedGrpData] = useState(null);
-    const [grpDetails,setGrpDetails] = useState(null);
-    
-    // to be done
+
     useEffect(() => {
         setLoading(true);
         axios
@@ -65,35 +63,21 @@ export default function AssignGroups() {
 
     const handleDomainChange = (e) => {
         setSelectedDomain(e.target.value);
-        setSelectedTeacher(null);
+        setSelectedTeacher('');
         fetchTeachersUnderDomain(e.target.value);
     };
 
     const handleTeacherChange = (e) => {
         setSelectedTeacher(e.target.value);
         fetchGroupsForTeacher();
-        handleTeacherGrpDetails()
     };
 
     const handleCheckboxChange = (group) => {
-        setSelectedGroup((prev) => prev === 0 ? group : 0);
-    };
-
-    const handleTeacherGrpDetails = () => {
-        axios
-            .post(`${appVars.backendUrl}/api/adminAllocation/getGroupCountDesignation/${selectedTeacher}`,{
-                headers: {
-                    Authorization: `Bearer ${admin.token}`,
-                },
-            })
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((e) => {
-                setLoading(false);
-                console.log(e);
-                toast.error(e.response.message);
-            });
+        if (selectedGroup != '') {
+            setSelectedGroup('');
+        } else {
+            setSelectedGroup(group);
+        }
     };
 
     function showDetails(id) {
@@ -128,31 +112,27 @@ export default function AssignGroups() {
             .then(() => {
                 setLoading(false);
                 toast.success('Groups allocated!');
-                setTimeout(() => {
-                    fetchGroupsForTeacher();
-                }, 1000);
+                fetchGroupsForTeacher(); // No need for setTimeout here
             })
             .catch((e) => {
                 setLoading(false);
-                toast.error(e.response.message);
+                toast.error(e.response.data.message);
             });
     };
 
     return (
-        <div className="flex flex-col items-center w-full">
-            {loading ? (
-                <div className="flex h-screen justify-center items-center">
-                    <Loading />
-                </div>
-            ) : (
-                <div className="flex items-center gap-4 bg-slate-200 p-4 w-full">
-                    <Toaster/>
+        loading ? <div className="flex h-screen justify-center items-center bg-[#71C9CE]"> <Loading /> </div> :
+            <>
+                <div className="flex flex-col fixed w-full">
+                    <div className="flex items-center gap-4 bg-[#E3FDFD] p-4">
+
+                    <Toaster />
                     <select
-                        className="px-2 py-2 bg-gray-100 cursor-pointer outline-none"
+                        className="px-2 py-2 bg-gray-100 cursor-pointer outline-none border border-black"
                         value={selectedDomain}
                         onChange={handleDomainChange}
                     >
-                        <option key='' value=''>Select Domain</option>
+                        <option value=''>Select Domain</option>
                         {domains.map((domain) => (
                             <option key={domain.id} value={domain.id}>
                                 {domain.domain_name}
@@ -162,66 +142,62 @@ export default function AssignGroups() {
 
                     {selectedDomain && (
                         <select
-                            className="px-2 py-2 bg-gray-100 cursor-pointer outline-none"
+                            className="px-2 py-2 bg-gray-100 cursor-pointer outline-none border border-black"
                             value={selectedTeacher}
                             onChange={handleTeacherChange}
-                            disabled={false}
                         >
-                            <option key='' value=''>Select Teacher</option>
+                            <option value=''>Select Teacher</option>
                             {teachersUnderDomain.map((teacher) => (
-                                <option key={teacher.name} value={teacher.id}>
+                                <option key={teacher.id} value={teacher.id}>
                                     {teacher.name}
                                 </option>
                             ))}
                         </select>
                     )}
 
-                
-
                     <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
                 </div>
-            )}
 
-            <p className="px-2 py-2 bg-gray-200 cursor-pointer outline-none mb-2 font-bold w-full">Select student groups:</p>
-            {selectedTeacher && groups.length > 0 && (
-    <table className="w-full border-collapse border">
-        <thead>
-            <tr>
-                <th className="border border-black px-4 py-1">Select</th>
-                <th className="border border-black px-4 py-1">Group Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            {groups.map((group) => (
-                <tr key={group.id}>
-                    <td className="border border-black px-4 py-1">
-                        <input
-                            type="checkbox"
-                            id={group.id}
-                            checked={selectedGroup === group.id}
-                            onChange={() => handleCheckboxChange(group.id)}
-                            value="name"
-                        />
-                    </td>
-                    <td className="border border-black px-4 py-1">
-                        <label htmlFor={group.id}>{group.group_name.toUpperCase()}</label>
-                        {selectedGrpData && (
-                            <ul className="">
-                                {selectedGrpData.map((student) => (
-                                    <li key={student.id}>{student.first_name}</li>
+                    <p className="px-2 py-2 bg-[#E3FDFD] cursor-pointer outline-nonefont-bold w-full">Select student groups:</p>
+                </div>
+                <div className="flex flex-col items-center p-20 bg-[#71C9CE] h-screen">
+                    {selectedTeacher && groups.length > 0 && (
+                        <table className="w-full mt-20">
+                            <thead>
+                                <tr className="bg-[#A6E3E9]">
+                                    <th className="border border-black px-4 py-1">Select</th>
+                                    <th className="border border-black px-4 py-1">Group Name</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {groups.map((group, index) => (
+                                    <tr key={group.id} className={index % 2 === 0 ? `bg-[#CBF1F5]` : `bg-[#A6E3E9]`}>
+                                        <td className="border border-black px-4 py-1">
+                                            <input
+                                                type="checkbox"
+                                                checked={selectedGroup === group.id}
+                                                onChange={() => handleCheckboxChange(group.id)}
+                                            />
+                                        </td>
+                                        <td className="border border-black px-4 py-1">
+                                            <label>{group.group_name.toUpperCase()}</label>
+                                            {selectedGrpData && (
+                                                <ul>
+                                                    {selectedGrpData.map((student) => (
+                                                        <li key={student.id}>{student.first_name}</li>
+                                                    ))}
+                                                </ul>
+                                            )}
+                                            <button onClick={() => showDetails(group.id)} className="bg-black rounded-md text-white p-2 m-2">
+                                                {selectedGrpData ? 'Hide Details' : 'Show Details'}
+                                            </button>
+                                        </td>
+                                    </tr>
                                 ))}
-                            </ul>
-                        )}
-                        <button onClick={() => showDetails(group.id)} className="bg-black rounded-md text-white p-2 m-2">
-                            {selectedGrpData ? 'Hide Details' : 'Show Details'}
-                        </button>
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    </table>
-)}
-
-        </div>
+                            </tbody>
+                        </table>
+                    )}
+                </div>
+            </>
     );
 }

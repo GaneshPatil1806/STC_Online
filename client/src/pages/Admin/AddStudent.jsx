@@ -87,7 +87,7 @@ export default function AddStudent() {
         </div>
       )}
 
-      <div className="flex justify-center items-center h-screen flex-col">
+      <div className="flex justify-center items-center h-screen flex-col bg-[#71C9CE]">
         <h1 className='md:text-3xl text-2xl font-bold md:my-5 my-3'>Add New Student / <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
           Upload CSV
           <input
@@ -99,7 +99,7 @@ export default function AddStudent() {
         </label>
         </span>
         </h1>
-        <form onSubmit={submitHandler} className="flex flex-col items-center bg-slate-300 shadow-md rounded p-4 mx-auto border-b-2 border-white w-[30%]">
+        <form onSubmit={submitHandler} className="flex flex-col items-center bg-[#E3FDFD] shadow-md rounded p-4 mx-auto border-b-2 border-white w-[30%]">
           <div className="flex flex-wrap -mx-2">
             {Object.entries(formData).map(([key, value]) => (
               <div key={key} className="mb-1 md:w-1/2 px-1 flex flex-col items-center">
@@ -107,7 +107,7 @@ export default function AddStudent() {
                   {key.replace(/_/g, ' ').toUpperCase()}
                 </label>
                 <input
-                  className="shadow appearance-none border rounded w-[90%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border border-black rounded w-[90%] py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   id={key}
                   name={key}
                   type={key === 'password' ? 'password' : 'text'}
@@ -119,7 +119,7 @@ export default function AddStudent() {
             ))}
           </div>
 
-          <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-4" type="submit">
+          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 m-2 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
           {loading && <Loading />}

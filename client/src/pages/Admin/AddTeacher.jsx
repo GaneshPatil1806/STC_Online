@@ -3,7 +3,7 @@ import { appVars } from "../../conf/conf";
 import { useState } from "react";
 import useUser from "../../context/UserContext";
 import toast, { Toaster } from 'react-hot-toast';
-import TeacherInput from "./TeacherInput";
+import TeacherInput from './TeacherInput'
 import { useNavigate } from "react-router-dom";
 
 export default function Addname() {
@@ -81,15 +81,15 @@ export default function Addname() {
   }
 
   return (
-
+    
     <>
       <div className="flex justify-between absolute w-full">
         <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
         <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/getTeachers')}>Fetch Teachers</button>
       </div>
 
-      <div className="flex flex-col justify-center items-center h-screen">
-      <h1 className='md:text-3xl text-2xl font-bold md:my-5 my-3'>Add New Teacher/ <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
+      <div className="flex flex-col justify-center items-center h-screen bg-[#71C9CE]">
+      <h1 className='text-xl font-bold md:my-5 my-3'>Add New Teacher/ <span className='cursor-pointer hover:underline rounded-xl p-1'><label className='cursor-pointer' htmlFor="uploadBanner">
           Upload CSV
           <input
             id="uploadBanner"
@@ -100,7 +100,7 @@ export default function Addname() {
         </label>
         </span>
         </h1>
-        <form className="flex flex-col justify-center items-center bg-slate-300 shadow-md rounded px-3 pt-6 pb-1 mb-1 w-[40%]" onSubmit={submitHandler}>
+        <form className="flex flex-col justify-center items-center bg-[#E3FDFD] shadow-md rounded px-3 pt-6 pb-1 mb-1 w-[40%]" onSubmit={submitHandler}>
 
           <div className="flex flex-wrap"><TeacherInput
             label="Name"
@@ -135,7 +135,7 @@ export default function Addname() {
                 DESIGNATION
               </label>
               <select
-                className="outline-none border rounded w-full py-2 px-6 text-gray-700 leading-tight"
+                className="outline-none border border-black rounded w-full py-2 px-6 text-gray-700 leading-tight"
                 value={teacher.designation}
                 onChange={(e) => teacher && setTeacher((prev) => ({ ...prev, designation: e.target.value }))}
               >
@@ -156,7 +156,7 @@ export default function Addname() {
               type="password"
             /></div>
 
-          <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
           <Toaster />

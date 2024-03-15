@@ -37,7 +37,7 @@ export default function AddDomain() {
   }
 
   return (
-    <>
+    <div className="bg-[#71C9CE]">
       <div className="flex justify-between absolute w-full">
         <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={()=>navigate('/admin/dashboard')}>DashBoard</button>
         <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={()=>navigate('/admin/dashboard/getDomains')}>Fetch Domains</button>
@@ -45,14 +45,14 @@ export default function AddDomain() {
       
       <div className="flex justify-center items-center h-screen flex-col">
 
-        <p>Add New Domain</p>
-        <form className="bg-slate-300 rounded p-4 m-2 border-b-2 border-white" onSubmit={submitHandler}>
+        <p className="text-black font-bold text-xl">Add New Domain</p>
+        <form className="bg-[#E3FDFD] rounded p-4 m-2 border-b-2 border-white" onSubmit={submitHandler}>
 
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="domain">
             Domain
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
             id="domain"
             name="domain"
             type="text"
@@ -61,7 +61,7 @@ export default function AddDomain() {
             onChange={(e) => setDomain(e.target.value)} // Controlled component
           />
 
-          <button className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
           <Toaster />
@@ -69,6 +69,6 @@ export default function AddDomain() {
           {loading && <Loading/>}
         </form>
       </div>
-    </>
+    </div>
   );
 }

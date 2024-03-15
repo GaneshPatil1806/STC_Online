@@ -59,15 +59,15 @@ function Admin() {
 
   return (
       <UserProvider value={admin}>
-        <div className="w-full flex flex-col justify-center items-center h-screen">
+        <div className="w-full flex flex-col justify-center items-center h-screen bg-[#71C9CE]">
           <p className="text-xl p-2 font-bold">Admin Login</p>
-          <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+          <form className="bg-[#E3FDFD] shadow-md rounded px-8 pt-6 pb-8 mb-4">
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="username">
                 USERNAME
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 id="username"
                 name="username"
                 type="text"
@@ -76,13 +76,13 @@ function Admin() {
                 onChange={changeHandler}
               />
             </div>
-
+            
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password">
                 PASSWORD
               </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                className="shadow appearance-none rounded w-full py-2 px-3 border border-black leading-tight focus:outline-none focus:shadow-outline"
                 id="password"
                 name="password"
                 type="password"

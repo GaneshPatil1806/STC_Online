@@ -42,33 +42,34 @@ export default function GetGroups() {
 
   return (
 
-    loading ? <div className="flex h-screen justify-center items-center"> <Loading /> </div> :
-      <>
-        <div className="flex justify-between absolute w-full">
+    loading ? <div className="flex h-screen justify-center items-center bg-[#71C9CE]"> <Loading /> </div> :
+      <div className="bg-[#71C9CE] h-screen">
+
+        <div className="flex justify-between fixed w-full">
           <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>DashBoard</button>
-          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/addGroup')}>Add Group</button>
+          <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard/assignGroups')}>Assign Group</button>
         </div>
 
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center p-20">
         <p className="font-bold text-xl mt-9">Groups</p>
           {groups.length > 0 ? (
             <>
-              <table className="w-full border-collapse border mt-2">
+              <table className="w-full mt-2 border border-black">
                 <thead>
-                  <tr>
-                    <th className="border px-4 py-2">Group Name</th>
-                    <th className="border px-4 py-2">Group ID</th>
-                    <th className="border px-4 py-2">Teacher ID</th>
-                    <th className="border px-4 py-2">Delete</th>
+                  <tr className="bg-[#A6E3E9]">
+                    <th className="border border-black px-4 py-2">Group Name</th>
+                    <th className="border border-black px-4 py-2">Group ID</th>
+                    <th className="border border-black px-4 py-2">Teacher ID</th>
+                    <th className="border border-black px-4 py-2">Delete</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {groups.map((element) => (
-                    <tr key={element.id} className="bg-gradient-to-r">
-                      <td className="border px-4 py-2">{element.group_name.toUpperCase()}</td>
-                      <td className="border px-4 py-2">{element.id}</td>
-                      <td className="border px-4 py-2">{element.fk_teacher}</td>
-                      <td className="border px-4 py-2 flex items-center">
+                  {groups.map((element,index) => (
+                    <tr key={element.id} className={ index%2==0 ? `bg-[#CBF1F5]`: `bg-[#A6E3E9]`}>
+                      <td className="border border-black px-4 py-2">{element.group_name.toUpperCase()}</td>
+                      <td className="border border-black px-4 py-2">{element.id}</td>
+                      <td className="border border-black px-4 py-2">{element.fk_teacher}</td>
+                      <td className="px-4 py-2 flex items-center">
                         <p>Delete</p>
                         <MdDelete
                           className="rounded-md cursor-pointer text-xl ml-2"
@@ -86,6 +87,6 @@ export default function GetGroups() {
           )}
         </div>
 
-      </>
+      </div>
   );
 }

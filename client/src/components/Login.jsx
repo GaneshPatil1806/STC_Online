@@ -1,5 +1,4 @@
-import loginLogo from '../assets/images/login-logo.jpg';
-import pictLogo from '../assets/images/pict-logo.jpg';
+import pictlogo2 from '../assets/images/pictlogo2.png';
 import { FaArrowAltCircleLeft } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -61,22 +60,21 @@ function Login ({ type }) {
 
     return (
         <UserContext.Provider value={user}>
-            <div className="flex h-screen bg-white">
-                <div className="lg:w-6/12 md:relative">
-                    <img className="absolute top-0 left-0 w-20 h-20 z-10 md:w-40 md:h-40" src={pictLogo} alt="Pict Logo" />
-                    <img src={loginLogo} className="hidden md:block w-full h-screen" alt="Login Logo" />
+            <div className="flex h-screen">
+                <div className="lg:w-6/12 md:relative flex justify-center items-center">
+                    <img src={pictlogo2} className="hidden md:block w-60 h-60 " alt="Login Logo" />
                 </div>
 
                 {type ? (
-                    <div className="w-full lg:w-6/12 flex flex-col justify-center items-center lg:p-4">
+                    <div className="w-full lg:w-6/12 flex flex-col justify-center items-center lg:p-4 bg-[#71C9CE]">
                         <span className="text-xl mb-5">{type.toUpperCase()}</span>
-                        <form className="bg-slate-200 shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                        <form className="bg-[#E3FDFD] shadow-md rounded px-8 pt-6 pb-8 mb-4">
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
                                     EMAIL
                                 </label>
                                 <input
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="email"
                                     name="email"
                                     type="text"
@@ -91,7 +89,7 @@ function Login ({ type }) {
                                     PASSWORD
                                 </label>
                                 <input
-                                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                    className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     id="password"
                                     name="password"
                                     type="password"
@@ -116,7 +114,7 @@ function Login ({ type }) {
                         <Toaster/>
                     </div>
                 ) : (
-                    <div className="flex flex-col w-full lg:w-6/12 relative">
+                    <div className="flex flex-col w-full lg:w-6/12 relative bg-[#A6E3E9]">
 
                         <Link to="/admin" className='flex ml-5 h-[15%] absolute right-10'>
                         <button className="underline">ADMIN</button>
@@ -127,11 +125,11 @@ function Login ({ type }) {
                             <div className="flex gap-10">
 
                                 <Link to="/teacher">
-                                    <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner">TEACHER</button>
+                                    <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner border border-black">TEACHER</button>
                                 </Link>
 
                                 <Link to="/student">
-                                    <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner">STUDENT</button>
+                                    <button className="bg-slate-200 text-black px-5 py-2 rounded-lg text-xl shadow-inner border border-black">STUDENT</button>
                                 </Link>
 
                             </div>

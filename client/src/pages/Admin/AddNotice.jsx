@@ -81,24 +81,26 @@ const AddNotice = () => {
     //console.log(notice);
     return (
 
-        <><div className="flex justify-between absolute w-full">
+        <>
+        
+        <div className="flex justify-between absolute w-full">
             <button className="bg-black text-white m-4 p-2 rounded-md relative" onClick={() => navigate('/admin/dashboard')}>
                 DashBoard
             </button>
         </div>
 
-            <div className='bg-[#d5e0fb] h-screen flex'>
-                <div className='w-[60%] p-10 border-r-2 border-gray-600'>
+            <div className='bg-[#71C9CE] h-screen flex'>
+                <div className='w-[60%] p-10 border-r-2 border-black'>
                     <h1 className='text-center text-2xl my-7 font-semibold'>Create A Notice </h1>
                     <input
-                        className='block rounded-full w-full py-4 px-4 text-xl border-x shadow-md'
+                        className='bg-[#E3FDFD] block rounded-full w-full py-2 px-4 text-md border-x shadow-md'
                         type='text'
                         placeholder='Title Of Notice........'
                         value={Title}
                         onChange={(e) => setTitle(e.target.value)}
                     />
                     <textarea
-                        className='rounded-lg w-full py-4 px-4 text-xl mt-2 h-[50%]'
+                        className='bg-[#E3FDFD] rounded-lg w-full py-4 px-4 text-md mt-2 h-[50%]'
                         type='text'
                         placeholder='Enter your Post.....'
                         rows={20}
@@ -106,15 +108,15 @@ const AddNotice = () => {
                         onChange={(e) => setPost(e.target.value)}
                     />
                     {loading && <Loading />}
-                    <button onClick={PostNotice} className='bg-[#01081c] text-white py-2 text-xl px-4 hover:bg-[#041952] rounded-xl mt-2'>SUBMIT</button>
+                    <button onClick={PostNotice} className='bg-[#01081c] text-white py-2 text-md px-4 rounded-xl mt-2'>SUBMIT</button>
                     <Toaster />
                 </div>
-                <div className='w-[40%]'>
-                    <h1 className='h-[20%] fixed text-center text-2xl my-7 font-semibold ml-2'>Previous Notices</h1>
+                <div className='w-[40%] flex justify-center'>
+                    <h1 className='h-[20%] fixed text-center text-2xl my-7 font-semibold ml-4'>Previous Notices</h1>
                     <div className='h-[80%] mt-20 top-0 left-0 right-0' style={{ overflowWrap: 'break-word',overflow:'auto' }}>
                         {notice.length > 0 ?
                             notice.map((msg) => (
-                                <div key={msg.id} className='m-2 p-2 bg-gray-200 rounded-lg'>
+                                <div key={msg.id} className='m-2 p-2 bg-[#E3FDFD] rounded-lg'>
                                     <p className='flex font-bold justify-between'>{msg.title} <MdDelete className="rounded-md cursor-pointer text-xl" onClick={() => handleDelete(msg.id)} /></p>
 
                                     <p>{msg.message}</p>
