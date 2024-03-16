@@ -109,7 +109,7 @@ export default function CreateGroup() {
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center bg-[#71C9CE] h-screen">
       <div className="flex justify-between w-full">
         <button
           className="bg-black text-white p-1 m-3 rounded-md relative"
@@ -124,7 +124,7 @@ export default function CreateGroup() {
         <form
           ref={formRef}
           onSubmit={submitHandler}
-          className="bg-slate-200 shadow-md rounded p-4 m-2 flex flex-col"
+          className="bg-[#E3FDFD] shadow-md rounded p-4 m-2 flex flex-col"
         >
           <label
             htmlFor="grpnumber"
@@ -133,7 +133,7 @@ export default function CreateGroup() {
             Select the number of students
           </label>
           <select
-            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            className="border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
             value={grpNumber || '2'}
             name="grpnumber"
             onChange={(e) => setGrpNumber(e.target.value)}
@@ -149,7 +149,7 @@ export default function CreateGroup() {
             Student 1
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 cursor-not-allowed"
+            className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4 cursor-not-allowed"
             type="text"
             id="roll_number1"
             name="roll_number1"
@@ -164,7 +164,7 @@ export default function CreateGroup() {
             Student 2
           </label>
           <input
-            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            className="shadow appearance-none border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
             type="text"
             id="roll_number2"
             name="roll_number2"
@@ -179,7 +179,7 @@ export default function CreateGroup() {
               Student 3
             </label>
               <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+                className="shadow appearance-none border border-black rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
                 type="text"
                 id="roll_number3"
                 name="roll_number3"
@@ -194,7 +194,7 @@ export default function CreateGroup() {
             DomainId
           </label>
           <select
-            className="border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
+            className="border border-black  rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-4"
             value={formData.domain_id}
             name="domain_id"
             onChange={handleChange}
@@ -207,10 +207,7 @@ export default function CreateGroup() {
                 </option>
               ))}
           </select>
-          <button
-            className="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="submit"
-          >
+          <button className="bg-[#71C9CE] hover:bg-[#A6E3E9] text-black font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
             Submit
           </button>
 

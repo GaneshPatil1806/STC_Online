@@ -68,20 +68,20 @@ function Dashboard() {
                     <div className="p-3 font-bold text-xl">Get Teachers</div>
                 </Link>
 
-                <Link to='assignGroups' className={classVar}>
-                    <div className="p-3 font-bold text-xl">Assign Groups</div>
-                </Link>
-
-                <Link to='getGroups' className={classVar}>
-                    <div className="p-3 font-bold text-xl">Get Groups</div>
-                </Link>
-
                 <Link to='addStudent' className={classVar}>
                     <div className="p-3 font-bold text-xl">Add Student</div>
                 </Link>
 
                 <Link to='getStudents' className={classVar}>
                     <div className="p-3 font-bold text-xl">Get Students</div>
+                </Link>
+
+                <Link to='assignGroups' className={classVar}>
+                    <div className="p-3 font-bold text-xl">Assign Groups</div>
+                </Link>
+
+                <Link to='getGroups' className={classVar}>
+                    <div className="p-3 font-bold text-xl">Get Groups</div>
                 </Link>
 
                 <Link to='assignTeacherDomains' className={classVar}>
