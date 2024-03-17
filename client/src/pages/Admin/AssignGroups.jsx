@@ -47,17 +47,19 @@ export default function AssignGroups() {
     };
 
     const getGrpCountDesignation = () => {
+        //console.log(selectedTeacher);
         setLoading(true);
-        axios.get(`${appVars.backendUrl}/api/adminAllocation/getGroupCountDesignation/${selectedDomain}`, {
+        axios.get(`${appVars.backendUrl}/api/adminAllocation/getGroupCountDesignation/${selectedTeacher}`, {
             headers: {
                Authorization: `Bearer ${admin.token}`,
             },
         }).then((res) => {
             setLoading(false);
-            console.log(res.data);
             setObj(res.data.data);
+        }).catch((e)=>{
+            console.log(e);
         })
-        console.log("obj ",obj);
+        //console.log(obj);
     }
 
     const fetchGroupsForTeacher = () => {
@@ -83,7 +85,8 @@ export default function AssignGroups() {
     };
 
     const handleTeacherChange = (e) => {
-        setSelectedTeacher(e.target.value);
+       // console.log(e.target.value);
+        setSelectedTeacher(()=>e.target.value);
         fetchGroupsForTeacher();
     };
 
@@ -151,7 +154,7 @@ export default function AssignGroups() {
                         )}
 
                         {obj!=null ? <div className="flex flex-col px-2 py-2 bg-gray-100 cursor-pointer outline-none border border-black"><h1>Designation: {obj.designation}</h1>
-                        <h1>Groups allocated: {obj.designation}</h1></div> : ''}
+                        <h1>Groups Count: {obj.group_count}</h1></div> : ''}
 
                         <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
                     </div>
