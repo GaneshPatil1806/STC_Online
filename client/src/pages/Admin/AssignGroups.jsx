@@ -13,6 +13,7 @@ export default function AssignGroups() {
     const [selectedDomain, setSelectedDomain] = useState('');
     const [selectedTeacher, setSelectedTeacher] = useState('');
     const [selectedGroup, setSelectedGroup] = useState('');
+    const [obj,setObj] = useState(null);
     const { admin } = useUser();
     
     useEffect(() => {
@@ -45,8 +46,23 @@ export default function AssignGroups() {
             .catch(() => setLoading(false));
     };
 
+    const getGrpCountDesignation = () => {
+        setLoading(true);
+        axios.get(`${appVars.backendUrl}/api/adminAllocation/getGroupCountDesignation/${selectedDomain}`, {
+            headers: {
+               Authorization: `Bearer ${admin.token}`,
+            },
+        }).then((res) => {
+            setLoading(false);
+            console.log(res.data);
+            setObj(res.data.data);
+        })
+        console.log("obj ",obj);
+    }
+
     const fetchGroupsForTeacher = () => {
         setLoading(true);
+        getGrpCountDesignation()
         axios
             .get(`${appVars.backendUrl}/api/adminAllocation/groupNotDomainTeacher/${selectedDomain}`, {
                 headers: {
@@ -90,7 +106,7 @@ export default function AssignGroups() {
             .then(() => {
                 setLoading(false);
                 toast.success('Groups allocated!');
-                fetchGroupsForTeacher(); // No need for setTimeout here
+                fetchGroupsForTeacher(); 
             })
             .catch((e) => {
                 setLoading(false);
@@ -133,6 +149,9 @@ export default function AssignGroups() {
                                 ))}
                             </select>
                         )}
+
+                        {obj!=null ? <div className="flex flex-col px-2 py-2 bg-gray-100 cursor-pointer outline-none border border-black"><h1>Designation: {obj.designation}</h1>
+                        <h1>Groups allocated: {obj.designation}</h1></div> : ''}
 
                         <button className="bg-black text-white p-2 rounded-md" onClick={handleAssignGroups}>Assign</button>
                     </div>
