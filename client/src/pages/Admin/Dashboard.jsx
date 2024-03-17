@@ -99,7 +99,6 @@ function Dashboard() {
             </div>
 
             {loading && <Loading />}
-
         </div></div>
 
     )
