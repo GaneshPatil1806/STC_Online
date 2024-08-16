@@ -1,5 +1,5 @@
 export const envVar = {
-    backendUrl:  import.meta.env.VITE_BACKEND_URL
+    backendUrl:  'https://stc-inhouse.onrender.com'
 };
 
 export const appVars = envVar;

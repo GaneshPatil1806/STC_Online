@@ -11,7 +11,7 @@ function GroupCard({ group, onGroupClick }) {
       className={`text-black flex justify-center p-2 m-1 border border-b cursor-pointer shadow shadow-slate-500 ${classNames}`}
       onClick={() => onGroupClick(group)}
     >
-      {group_name}
+      {group_name.toUpperCase()}
     </li>
   );
 }

@@ -140,9 +140,7 @@ export default function ChatCard() {
       })
     }
   }
-
-  //console.log(chats);
-
+  
   return (
     <div className="h-full w-full flex flex-col bg-[#E3FDFD]">
 
